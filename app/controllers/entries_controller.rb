@@ -25,9 +25,12 @@ class EntriesController < ApplicationController
   # POST /entries.json
   def create
     @entry = Entry.new(entry_params)
+    Pusher.url = "http://6cf8dfb25489020a860b:2d36b119c7b193cf1314@api.pusherapp.com/apps/59201"
 
     respond_to do |format|
       if @entry.save
+        Pusher['story_1_entries'].trigger('new_entry_event', @entry.to_json)
+
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
         format.json { render action: 'show', status: :created, location: @entry }
       else

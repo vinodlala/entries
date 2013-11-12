@@ -80,8 +80,20 @@
   <%= yield %>
 
   </div>
-
   <%= javascript_include_tag "application" %>
+  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var pusher = new Pusher('6cf8dfb25489020a860b');
+    var channel = pusher.subscribe('story_1_entries');
+    channel.bind('new_entry_event', function(data) {
+debugger;
+      if(app.Entries.where({id: data.id}).length === 0) {
+        app.Entries.add(data);
+      }
+    });
+
+  </script>
+
 
 </body>
 </html>
