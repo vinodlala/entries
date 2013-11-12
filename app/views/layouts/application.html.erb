@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Entries</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div id="info">
+    <p>Double-click a story entry to edit it.</p>
+    <p>Start typing or click on the bottom entry to make a new one.</p>
+  </div>
+
+  <section id="entryapp">
+
+
+
+    <header id="header">
+      <h1>Story Title</h1>
+      <!-- <h1>A Fullstack Story</h1> -->
+      <!-- <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus> -->
+    </header>
+
+    <section id="main">
+      <input id="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="entry-list"></ul>
+    </section>
+
+    <header id="header">
+      <!-- <h1>Story Title</h1> -->
+      <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus>
+    </header>
+
+    <footer id="footer"></footer>
+
+  </section>
+
+  <div id="info">
+    <p>Double-click a story entry to edit it.</p>
+  </div>
+
+  <!-- old script was here -->
+  <script type="text/template" id="item-template">
+    <div class="view">
+      <input class="toggle" type="checkbox" <%%= completed ? 'checked' : '' %>>
+      <label><%%- description %></label>
+      <button class="destroy"></button>
+    </div>
+    <input class="edit" value="<%%- description %>">
+  </script>
+
+  <script type="text/template" id="stats-template">
+    <span id="entry-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'item' : 'items' %> left</span>
+    <ul id="filters">
+      <li>
+        <a class="selected" href="#/">All</a>
+      </li>
+      <li>
+        <a href="#/active">Active</a>
+      </li>
+      <li>
+        <a href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <%% if (completed) { %>
+    <button id="clear-completed">Clear completed (<%%= completed %>)</button>
+    <%% } %>
+  </script>
+
+  <!-- <%= yield %> -->
+  <%= javascript_include_tag "application" %>
+
+</body>
+</html>
