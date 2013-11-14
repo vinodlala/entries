@@ -4,8 +4,6 @@ class EntriesController < ApplicationController
   # GET /entries
   # GET /entries.json
   def index
-    # debugger
-    # if
     @story = Story.find(params[:story_id])
     @entries = @story.entries
   end
