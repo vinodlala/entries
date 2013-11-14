@@ -1,10 +1,10 @@
 Entries::Application.routes.draw do
   # root 'pages#index'
   # get 'stories/1/entries' => 'entries#index'
-  get 'stories/:id/entries' => 'entries#index'
+  # get 'stories/:id/entries' => 'entries#index'
 
 
-  resources :entries
+  # resources :entries
 
   resources :stories do
     resources :entries
