@@ -10,9 +10,9 @@ var Workspace = Backbone.Router.extend({
     }
     app.EntryFilter = param || '';
 
-    // Trigger a collection filter event, causing hiding/unhiding
-    // of Todo view items
-    app.Entries.trigger('filter');
+    // // Trigger a collection filter event, causing hiding/unhiding
+    // // of Todo view items
+    // app.Entries.trigger('filter');
   }
 });
 

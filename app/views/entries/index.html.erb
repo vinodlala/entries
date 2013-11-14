@@ -76,6 +76,13 @@ $(function() {
   // var myApp = new app.AppView();
   app.Entries = new EntryList();
   app.Entries.story_id = <%= @story.id %>;
+
+    // Trigger a collection filter event, causing hiding/unhiding
+    // of Todo view items
+    // moved from entries router
+    app.Entries.trigger('filter');
+
+
   var myApp = new app.EntryAppView();
 
   // myApp.initialize();
