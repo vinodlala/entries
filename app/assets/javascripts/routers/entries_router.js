@@ -17,4 +17,5 @@ var Workspace = Backbone.Router.extend({
 });
 
 app.EntryRouter = new Workspace();
-Backbone.history.start();
+// Backbone.history.start();
+Backbone.history.start({pushState: true});

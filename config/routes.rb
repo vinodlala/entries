@@ -1,9 +1,14 @@
 Entries::Application.routes.draw do
   # root 'pages#index'
+  # get 'stories/1/entries' => 'entries#index'
+  get 'stories/:id/entries' => 'entries#index'
+
 
   resources :entries
 
-  resources :stories
+  resources :stories do
+    resources :entries
+  end
 
   resources :users
 

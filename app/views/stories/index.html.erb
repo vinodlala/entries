@@ -1,31 +1,71 @@
-<h1>Listing stories</h1>
+  <div id="info">
+    <p>Double-click a story to read it, add to it or edit it.</p>
+    <p>Start typing or click on the top space to make a new story.</p>
+  </div>
+  <section id="storyapp">
+    <header id="header">
+      <h1>Story Stacker</h1>
+      <!-- <h1>A Fullstack Story</h1> -->
+      <input id="new-story" placeholder="Click here to add a new story to the list." autofocus>
+    </header>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>User</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <section id="main">
+      <input id="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="story-list"></ul>
+    </section>
 
-  <tbody>
-    <% @stories.each do |story| %>
-      <tr>
-        <td><%= story.title %></td>
-        <td><%= story.description %></td>
-        <td><%= story.user_id %></td>
-        <td><%= link_to 'Show', story %></td>
-        <td><%= link_to 'Edit', edit_story_path(story) %></td>
-        <td><%= link_to 'Destroy', story, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <header id="header">
+      <!-- <h1>Story Title</h1> -->
+<!--       <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus> -->
+    </header>
 
-<br>
+    <footer id="footer"></footer>
 
-<%= link_to 'New Story', new_story_path %>
+  </section>
+
+  <div id="info">
+    <p></p>
+  </div>
+
+  <!-- old script was here -->
+  <script type="text/template" id="item-template">
+    <div class="view">
+      <input class="toggle" type="checkbox" <%%= completed ? 'checked' : '' %>>
+      <label><%%- description %></label>
+      <button class="destroy"></button>
+      <button class="goto"></button>
+    </div>
+    <input class="edit" value="<%%- description %>">
+  </script>
+
+  <script type="text/template" id="stats-template">
+    <span id="story-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'story' : 'stories' %></span>
+    <ul id="filters">
+      <li>
+        <a class="selected" href="#/">All</a>
+      </li>
+      <li>
+        <a href="#/active">Active</a>
+      </li>
+      <li>
+        <a href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <%% if (completed) { %>
+    <button id="clear-completed">Clear completed (<%%= completed %>)</button>
+    <%% } %>
+  </script>
+
+<% content_for :javascripts_footer do %>
+<script type="text/javascript">
+$(function() {
+
+  // Kick things off by creating the **App**.
+  // var myApp = new app.AppView();
+  var myApp = new app.StoryAppView();
+
+  // myApp.initialize();
+});
+</script>
+<% end %>

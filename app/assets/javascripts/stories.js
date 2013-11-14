@@ -1,10 +1,10 @@
 var app = app || {};
 
-// Entry Item View
+// Story Item View
 // --------------
 
-// The DOM element for an entry item...
-app.EntryView = Backbone.View.extend({
+// The DOM element for a story item...
+app.StoryView = Backbone.View.extend({
 
   //... is a list tag.
   tagName: 'li',
@@ -17,6 +17,9 @@ app.EntryView = Backbone.View.extend({
     'click .toggle': 'togglecompleted', // NEW
     'dblclick label': 'edit',
     'click .destroy': 'clear',           // NEW
+
+    'click .goto': 'goToStory',           // NEW
+
     'keypress .edit': 'updateOnEnter',
     'blur .edit': 'close'
   },
@@ -51,7 +54,7 @@ app.EntryView = Backbone.View.extend({
   isHidden : function () {
     var isCompleted = this.model.get('completed');
     return ( // hidden cases only
-      (!isCompleted && app.EntryFilter === 'completed') || (isCompleted && app.EntryFilter === 'active')
+      (!isCompleted && app.StoryFilter === 'completed') || (isCompleted && app.StoryFilter === 'active')
     );
   },
 
@@ -91,5 +94,15 @@ app.EntryView = Backbone.View.extend({
   // NEW - Remove the item, destroy the model from *localStorage* and delete its view.
   clear: function() {
     this.model.destroy();
+  },
+  goToStory: function () {
+    // debugger;
+    // app.StoryRouter.route("stories/1");
+    alert("stories.js - goToStory - this.model.id: " + this.model.id);
+
+    theroute = 'stories/' + this.model.id + '/entries';
+    alert("stories.js - goToStory - theroute:" + theroute);
+    app.StoryRouter.navigate(theroute, {trigger:true});
+
   }
 });
