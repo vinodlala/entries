@@ -98,10 +98,10 @@ app.StoryView = Backbone.View.extend({
   goToStory: function () {
     // debugger;
     // app.StoryRouter.route("stories/1");
-    alert("stories.js - goToStory - this.model.id: " + this.model.id);
+    //alert("stories.js - goToStory - this.model.id: " + this.model.id);
 
     theroute = 'stories/' + this.model.id + '/entries';
-    alert("stories.js - goToStory - theroute:" + theroute);
+    //alert("stories.js - goToStory - theroute:" + theroute);
     app.StoryRouter.navigate(theroute, {trigger:true});
 
   }

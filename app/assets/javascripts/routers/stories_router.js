@@ -6,7 +6,7 @@ var Workspace = Backbone.Router.extend({
 
   setFilter: function( param ) {
 
-    debugger;
+    // debugger;
 
     // Set the current filter to be used
     if (param) {
@@ -20,7 +20,7 @@ var Workspace = Backbone.Router.extend({
   },
   stories: function (id) {
 
-    alert("stories_router id: " + id);
+    //alert("stories_router id: " + id);
     window.location = "/stories/"+id+"/entries";
       // this.navigate("1/entries");
 

@@ -46,13 +46,13 @@ app.EntryAppView = Backbone.View.extend({
     this.listenTo(app.Entries, 'filter', this.filterAll);
     this.listenTo(app.Entries, 'all', this.render);
 
-    alert("in entries_index initialize, before Entries.fetch()");
+    //alert("in entries_index initialize, before Entries.fetch()");
     // alert(app.Entries);
     // debugger;
     // alert(app.Entries[story_id]);
     app.Entries.fetch();
     // app.Entries.fetch( {data: {id: 2} });
-    alert(app.Entries);
+    //alert(app.Entries);
 
     // alert(app.Entries[story_id]);
     // alert(app.Entries.where({story_id:3}));
