@@ -1,4 +1,5 @@
 Entries::Application.routes.draw do
+  root 'stories#index'
   # root 'pages#index'
   # get 'stories/1/entries' => 'entries#index'
   # get 'stories/:id/entries' => 'entries#index'
