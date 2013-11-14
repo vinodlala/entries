@@ -74,6 +74,8 @@ $(function() {
 
   // Kick things off by creating the **App**.
   // var myApp = new app.AppView();
+  app.Entries = new EntryList();
+  app.Entries.story_id = <%= @story.id %>;
   var myApp = new app.EntryAppView();
 
   // myApp.initialize();

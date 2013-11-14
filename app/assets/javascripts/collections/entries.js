@@ -17,7 +17,7 @@ var EntryList = Backbone.Collection.extend({
   // Set the url property (or function) on a collection to reference its location on the server.
   // url: '/entries',
   url: function() {
-    '/stories/' + this.story_id + '/entries'
+    return '/stories/' + this.story_id + '/entries';
   },
   // url: function() {
   //   '/story/' + this.story_id + '/entries'
