@@ -11,14 +11,14 @@ var EntryList = Backbone.Collection.extend({
   model: app.Entry,
 
   // story_id: null,
-  story_id: 2,
+  // story_id: 2,
 
 
   // Set the url property (or function) on a collection to reference its location on the server.
-  url: '/entries',
-  // url: function() {
-  //   '/story/' + '1' + '/entries'
-  // },
+  // url: '/entries',
+  url: function() {
+    '/stories/' + this.story_id + '/entries'
+  },
   // url: function() {
   //   '/story/' + this.story_id + '/entries'
   // },
@@ -54,6 +54,6 @@ var EntryList = Backbone.Collection.extend({
 });
 
 // Create our global collection of **Entries**.
-alert("js/collections/entries.js - before app.Entries = new EntryList()")
+// alert("js/collections/entries.js - before app.Entries = new EntryList()")
 // app.Entries = new EntryList();
-app.Entries = new EntryList( {story_id: 2} );
+// app.Entries = new EntryList( {story_id: 2} );
