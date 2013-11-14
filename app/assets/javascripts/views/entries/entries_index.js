@@ -122,7 +122,7 @@ app.EntryAppView = Backbone.View.extend({
     return {
       // title: this.$input.val().trim(),
       description: this.$input.val().trim(),
-      // user_id:
+      user_id: 1,
       story_id: app.Entries.story_id,
       order: app.Entries.nextOrder(),
       completed: false

@@ -5,7 +5,9 @@ class EntriesController < ApplicationController
   # GET /entries.json
   def index
     @story = Story.find(params[:story_id])
-    @entries = @story.entries
+    # @entries = @story.entries
+    @entries = @story.entries.order(:id)
+
   end
 
   # GET /entries/1
