@@ -50,7 +50,7 @@ body {
 #entryapp {
   background: #fff;
   background: rgba(255, 255, 255, 0.9);
-  margin: 130px 0 40px 0;
+  margin: 0px 0 40px 0;
   border: 1px solid #ccc;
   position: relative;
   border-top-left-radius: 2px;
@@ -81,7 +81,7 @@ body {
 
 #entryapp h1 {
   position: absolute;
-  top: -120px;
+  /*top: -120px;*/
   width: 100%;
   font-size: 70px;
   font-weight: bold;
@@ -95,6 +95,40 @@ body {
   -o-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
 }
+
+#title {
+  /*background: #fff;*/
+  /*background: rgba(255, 255, 255, 0.9);*/
+/*  margin: 130px 0 40px 0;*/
+  margin: 10px 0 0px 0;
+  border: 1px solid #ccc;
+  /*border: 1px;*/
+  position: relative;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
+        0 25px 50px 0 rgba(0, 0, 0, 0.15);
+}
+
+#title h1 {
+  /*position: absolute;*/
+  /*top: -120px;*/
+  width: 100%;
+  font-size: 70px;
+  font-weight: bold;
+  text-align: center;
+  color: #b3b3b3;
+  color: rgba(255, 255, 255, 0.3);
+  text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+}
+
+
+
 
 #storyapp {
   background: #fff;
@@ -566,8 +600,9 @@ label[for='toggle-all'] {
 }
 
 #entry-count {
-  float: left;
-  text-align: left;
+  /*float: left;*/
+  /*text-align: left;*/
+  text-align: center;
 }
 
 #story-count {
@@ -585,7 +620,8 @@ label[for='toggle-all'] {
 }
 
 #filters li {
-  display: inline;
+/*  display: inline;*/
+  display: none;
 }
 
 #filters li a {

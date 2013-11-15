@@ -2,9 +2,13 @@
     <p>To edit an EXISTING entry, double-click it, change it, and press ENTER.</p>
     <p>To create a NEW entry, type in the bottom box and press ENTER.</p>
   </div>
+
+  <section id="title"><h1><%= @story.description %></h1></section>
+
   <section id="entryapp">
     <header id="header">
-      <h1>Story Title</h1>
+
+<!--       <h1>Story Title</h1> -->
       <!-- <h1>A Fullstack Story</h1> -->
       <!-- <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus> -->
     </header>
@@ -15,10 +19,11 @@
       <ul id="entry-list"></ul>
     </section>
 
-    <header id="header">
+    <!-- <header> -->
+    <!-- <header id="header"> -->
       <!-- <h1>Story Title</h1> -->
       <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus>
-    </header>
+    <!-- </header> -->
 
     <footer id="footer"></footer>
 
@@ -39,7 +44,7 @@
   </script>
 
   <script type="text/template" id="stats-template">
-    <span id="entry-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'item' : 'items' %> left</span>
+    <span id="entry-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'entry' : 'entries' %> written</span>
     <ul id="filters">
       <li>
         <a class="selected" href="#/">All</a>
@@ -80,7 +85,7 @@ $(function() {
     // Trigger a collection filter event, causing hiding/unhiding
     // of Todo view items
     // moved from entries router
-    app.Entries.trigger('filter');
+    // app.Entries.trigger('filter');
 
 
   var myApp = new app.EntryAppView();
