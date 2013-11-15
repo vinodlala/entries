@@ -96,6 +96,26 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+#info {
+  margin: 65px auto 0;
+  color: #a6a6a6;
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+#info a {
+  color: inherit;
+}
+
+.info {
+  margin: 0 auto 0;
+  color: #a6a6a6;
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
 #title {
   /*background: #fff;*/
   /*background: rgba(255, 255, 255, 0.9);*/
@@ -104,13 +124,15 @@ body {
   border: 1px solid #ccc;
   /*border: 1px;*/
   position: relative;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
-        0 25px 50px 0 rgba(0, 0, 0, 0.15);
+  /*border-top-left-radius: 2px;*/
+  /*border-top-right-radius: 2px;*/
+/*  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
+        0 25px 50px 0 rgba(0, 0, 0, 0.15);*/
+
+  /*border-style: none;*/
 }
 
-#title h1 {
+#title2 h1 {
   /*position: absolute;*/
   /*top: -120px;*/
   width: 100%;
