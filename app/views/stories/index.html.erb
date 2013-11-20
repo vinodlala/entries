@@ -37,9 +37,9 @@
       <button class="destroy"></button>
       <button class="goto"></button>
     </div>
-    <input class="edit" value="<%%- description %>">
+    <textarea class="edit"><%%- description %></textarea>
   </script>
-
+<!-- <input class="edit" value="<%%- description %>"> -->
   <script type="text/template" id="stats-template">
     <span id="story-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'story' : 'stories' %></span>
     <ul id="filters">

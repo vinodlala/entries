@@ -337,14 +337,14 @@ label[for='toggle-all'] {
   position: relative;
   font-size: 24px;
   border-bottom: 1px dotted #ccc;
-  word-wrap:break-word;
+  word-wrap:normal;
 }
 
 #story-list li {
   position: relative;
   font-size: 24px;
   border-bottom: 1px dotted #ccc;
-  word-wrap:break-word;
+  word-wrap:normal;
 }
 
 #entry-list li:last-child {
@@ -454,8 +454,8 @@ label[for='toggle-all'] {
 }
 
 #entry-list li label {
-  white-space: pre;
-  word-break: break-word;
+  /*white-space: pre;*/
+  /*word-break: break-word;*/
   padding: 15px 60px 15px 15px;
   margin-left: 45px;
   display: block;
@@ -465,8 +465,8 @@ label[for='toggle-all'] {
 }
 
 #story-list li label {
-  white-space: pre;
-  word-break: break-word;
+  /*white-space: pre;*/
+  /*word-break: break-word;*/
   padding: 15px 60px 15px 15px;
   margin-left: 45px;
   display: block;

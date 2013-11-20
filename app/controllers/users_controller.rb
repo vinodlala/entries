@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+  # Vin devise
+  # before_filter :authenticate_user!
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users

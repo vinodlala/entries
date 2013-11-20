@@ -1,4 +1,8 @@
 Entries::Application.routes.draw do
+  # changed pathnames so sign_in is login and sign_out is logout
+  devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
+  # devise_for :users
+
   root 'stories#index'
   # root 'pages#index'
   # get 'stories/1/entries' => 'entries#index'
