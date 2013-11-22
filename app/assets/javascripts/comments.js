@@ -1,10 +1,10 @@
 var app = app || {};
 
-// Entry Item View
+// Comment Item View
 // --------------
 
 // The DOM element for an entry item...
-app.EntryView = Backbone.View.extend({
+app.CommentView = Backbone.View.extend({
 
   //... is a list tag.
   tagName: 'li',
@@ -17,10 +17,6 @@ app.EntryView = Backbone.View.extend({
     'click .toggle': 'togglecompleted', // NEW
     'dblclick label': 'edit',
     'click .destroy': 'clear',           // NEW
-
-    'click .goto': 'goToEntry',           // NEW
-
-
     'keypress .edit': 'updateOnEnter',
     'blur .edit': 'close'
   },
@@ -95,27 +91,5 @@ app.EntryView = Backbone.View.extend({
   // NEW - Remove the item, destroy the model from *localStorage* and delete its view.
   clear: function() {
     this.model.destroy();
-  },
-  goToEntry: function () {
-    // debugger;
-    // app.StoryRouter.route("stories/1");
-    // alert("stories.js - goToEntry - this.model: " + this.model);
-
-    // alert("stories.js - goToEntry - this.model.id: " + this.model.id);
-
-    // alert("stories.js - goToEntry - this.model.story_id: " + this.model.story_id);
-
-    // alert("stories.js - goToEntry - this.model.collection.story_id: " + this.model.collection.story_id);
-
-    // alert("stories.js - goToEntry - this.collection.story_id: " + this.collection.story_id);
-    // debugger;
-
-    theroute = 'stories/' + this.model.collection.story_id + '/entries/' + this.model.id + '/comments';
-    //alert("stories.js - goToStory - theroute:" + theroute);
-    // app.EntryRouter.navigate(theroute, {trigger:true});
-
-    // making one router only, story router
-    app.StoryRouter.navigate(theroute, {trigger:true});
-
   }
 });

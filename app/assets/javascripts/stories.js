@@ -14,32 +14,32 @@ app.StoryView = Backbone.View.extend({
 
   // The DOM events specific to an item.
   events: {
-    'click .toggle': 'togglecompleted', // NEW
-    'dblclick label': 'edit',
+    // 'click .toggle': 'togglecompleted', // NEW
+    // 'dblclick label': 'edit',
     'click .destroy': 'clear',           // NEW
 
     'click .goto': 'goToStory',           // NEW
 
-    'keypress .edit': 'updateOnEnter',
+    // 'keypress .edit': 'updateOnEnter',
     'blur .edit': 'close'
   },
 
-  // The EntryView listens for changes to its model, re-rendering. Since there's
+  // The StoryView listens for changes to its model, re-rendering. Since there's
   // a one-to-one correspondence between an **Entry** and an **EntryView** in this
   // app, we set a direct reference on the model for convenience.
   initialize: function() {
     this.listenTo(this.model, 'change', this.render);
     this.listenTo(this.model, 'destroy', this.remove);        // NEW
-    this.listenTo(this.model, 'visible', this.toggleVisible); // NEW
+    // this.listenTo(this.model, 'visible', this.toggleVisible); // NEW
   },
 
-  // Re-renders the titles of the entry item.
+  // Re-renders the titles of the story item.
   render: function() {
     // debugger;
     this.$el.html( this.template( this.model.toJSON() ) );
 
-    this.$el.toggleClass( 'completed', this.model.get('completed') ); // NEW
-    this.toggleVisible();                                             // NEW
+    // this.$el.toggleClass( 'completed', this.model.get('completed') ); // NEW
+    // this.toggleVisible();                                             // NEW
 
     this.$input = this.$('.edit');
     return this;
@@ -71,6 +71,7 @@ app.StoryView = Backbone.View.extend({
 
   // Close the `"editing"` mode, saving changes to the entry.
   close: function() {
+    // debugger;
     var value = this.$input.val().trim();
 
     // if ( value ) {
@@ -86,6 +87,7 @@ app.StoryView = Backbone.View.extend({
 
   // If you hit `enter`, we're through editing the item.
   updateOnEnter: function( e ) {
+    // debugger;
     if ( e.which === ENTER_KEY ) {
       this.close();
     }
@@ -103,6 +105,7 @@ app.StoryView = Backbone.View.extend({
     theroute = 'stories/' + this.model.id + '/entries';
     //alert("stories.js - goToStory - theroute:" + theroute);
     app.StoryRouter.navigate(theroute, {trigger:true});
+    // app.StoryRouter.navigate(theroute);
 
   }
 });

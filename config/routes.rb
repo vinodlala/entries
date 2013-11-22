@@ -1,4 +1,6 @@
 Entries::Application.routes.draw do
+  resources :comments
+
   # changed pathnames so sign_in is login and sign_out is logout
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
   # devise_for :users
@@ -11,8 +13,14 @@ Entries::Application.routes.draw do
 
   # resources :entries
 
+  # resources :stories do
+  #   resources :entries
+  # end
+
   resources :stories do
-    resources :entries
+    resources :entries do
+      resources :comments
+    end
   end
 
   resources :users

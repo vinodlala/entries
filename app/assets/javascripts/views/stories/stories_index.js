@@ -33,6 +33,9 @@ app.StoryAppView = Backbone.View.extend({
   // collection, when items are added or changed. Kick things off by
   // loading any preexisting entries that might be saved in *localStorage*.
   initialize: function() {
+    if (!_.isUndefined(arguments[0].user_id)) {
+      this.user_id = arguments[0].user_id;
+    }
     this.allCheckbox = this.$('#toggle-all')[0];
     this.$input = this.$('#new-story');
     this.$footer = this.$('#footer');
@@ -108,7 +111,9 @@ app.StoryAppView = Backbone.View.extend({
     // debugger;
     return {
       // title: this.$input.val().trim(),
+      title: this.$input.val().trim(),
       description: this.$input.val().trim(),
+      user_id: this.user_id,
       order: app.Stories.nextOrder(),
       completed: false
     };

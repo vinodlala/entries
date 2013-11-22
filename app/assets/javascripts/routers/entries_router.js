@@ -1,6 +1,11 @@
-var Workspace = Backbone.Router.extend({
+var Workspace2 = Backbone.Router.extend({
   routes:{
-    '*filter': 'setFilter'
+    // 'stories/:story_id/entries/:entry_id/comments': 'entries',
+    // '*filter': 'setFilter'
+
+
+
+
   },
 
   setFilter: function( param ) {
@@ -13,9 +18,20 @@ var Workspace = Backbone.Router.extend({
     // // Trigger a collection filter event, causing hiding/unhiding
     // // of Todo view items
     // app.Entries.trigger('filter');
+  },
+  entries: function (story_id, entry_id) {
+    // debugger;
+    console.log(window.location);
+    // debugger;
+
+    //alert("stories_router id: " + id);
+    window.location = "/stories/"+story_id+"/entries/"+entry_id+"/comments";
+      // this.navigate("1/entries");
+
+
   }
 });
 
-app.EntryRouter = new Workspace();
+// app.EntryRouter = new Workspace2();
 // Backbone.history.start();
-Backbone.history.start({pushState: true});
+// Backbone.history.start({pushState: true});

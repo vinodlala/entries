@@ -12,7 +12,7 @@
 
     <section id="main">
       <input id="toggle-all" type="checkbox">
-      <!-- <label for="toggle-all">Mark all as complete</label> -->
+      <label for="toggle-all">Mark all as complete</label>
       <ul id="story-list"></ul>
     </section>
 
@@ -32,18 +32,9 @@
   <!-- old script was here -->
   <script type="text/template" id="item-template">
     <div class="view">
-
-
-      <%% if (false) { %>
+      <input class="toggle" type="checkbox" <%%= completed ? 'checked' : '' %>>
+      <label><%%- description %></label>
       <button class="destroy"></button>
-      <%% } %>
-
-
-      <div><label class="story-title">"<%%- title %>"</label></div>
-
-      <div><label><%%- description %></label></div>
-      <div><label class="story-writers">By: user1, user2, user3</label></div>
-
       <button class="goto"></button>
     </div>
     <textarea class="edit"><%%- description %></textarea>

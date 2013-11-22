@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require underscore
 //= require backbone
+//= require comments
 //= require entries
 //= require stories
 //= require_tree ./models
@@ -24,10 +25,17 @@
 var app = app || {};
 var ENTER_KEY = 13;
 
+
+
 // // Originally in assets/javascripts/application.js
 // // The Application
 // // ---------------
-// // $(function() {
+
+// Desmond doing this on page load, moved it to after app.StoryRouter defined
+// $(function() {
+//   Backbone.history.start({pushState: true});
+// });
+
 
 // // Our overall **AppView** is the top-level piece of UI.
 // app.AppView = Backbone.View.extend({

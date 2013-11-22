@@ -1,11 +1,11 @@
   <div id="info">
-    <p>To edit an EXISTING entry, double-click it, change it, and press ENTER.</p>
-    <p>To create a NEW entry, type in the bottom box and press ENTER.</p>
+    <p>To edit an EXISTING comment, double-click it, change it, and press ENTER.</p>
+    <p>To create a NEW comment, type in the bottom box and press ENTER.</p>
   </div>
 
-  <section id="title2"><h1><%= @story.description %></h1></section>
+  <section id="title2"><h1><%= @entry.description %></h1></section>
 
-  <section id="entryapp">
+  <section id="commentapp">
 
     <header id="header">
 <!--       <h1>Story Title</h1> -->
@@ -16,13 +16,13 @@
     <section id="main">
       <input id="toggle-all" type="checkbox">
       <label for="toggle-all">Mark all as complete</label>
-      <ul id="entry-list"></ul>
+      <ul id="comment-list"></ul>
     </section>
 
     <!-- <header> -->
     <!-- <header id="header"> -->
       <!-- <h1>Story Title</h1> -->
-      <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus>
+      <input id="new-comment" placeholder="Click here to add a new comment to the entry." autofocus>
     <!-- </header> -->
 
     <footer id="footer"></footer>
@@ -36,27 +36,18 @@
   <!-- old script was here -->
   <script type="text/template" id="item-template">
     <div class="view">
-
-
-      <%% if (false) { %>
-      <button class="destroy"></button>
-      <%% } %>
-
-
       <input class="toggle" type="checkbox" <%%= completed ? 'checked' : '' %>>
-
-
-
-      <div><label><%%- description %></label></div>
-      <div><label class="entry-writers">By: user1, user2, user3</label></div>
-
-      <button class="goto"></button>
+      <label><%%- description %></label>
+      <button class="destroy"></button>
     </div>
-    <textarea class="edit" value="<%%- description %>">
+    <input class="edit" value="<%%- description %>">
   </script>
 
   <script type="text/template" id="stats-template">
-    <span id="entry-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'entry' : 'entries' %> written</span>
+
+
+
+    <span id="comment-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'comment' : 'comments' %> written</span>
     <ul id="filters">
       <li>
         <a class="selected" href="#/">All</a>
@@ -77,10 +68,10 @@
   <script type="text/javascript">
     var pusher = new Pusher('6cf8dfb25489020a860b');
     var channel = pusher.subscribe('story_1_entries');
-    channel.bind('new_entry_event', function(data) {
+    channel.bind('new_comment_event', function(data) {
       // debugger;
-      if(app.Entries.where({id: data.id}).length === 0) {
-        app.Entries.add(data);
+      if(app.Comments.where({id: data.id}).length === 0) {
+        app.Comments.add(data);
       }
     });
   </script>
@@ -91,20 +82,20 @@ $(function() {
 
   // Kick things off by creating the **App**.
   // var myApp = new app.AppView();
-  app.Entries = new EntryList();
-  app.Entries.story_id = <%= @story.id %>;
-
+  app.Comments = new CommentList();
+  app.Comments.entry_id = <%= @entry.id %>;
+  app.Comments.story_id = <%= @entry.story_id %>;
     // Trigger a collection filter event, causing hiding/unhiding
     // of Todo view items
     // moved from entries router
     // app.Entries.trigger('filter');
 
 
-  // var myApp = new app.EntryAppView();
+  // var myApp = new app.CommentAppView();
   <% if current_user %>
-    var myApp = new app.EntryAppView({user_id: <%= current_user.id %>});
+    var myApp = new app.CommentAppView({user_id: <%= current_user.id %>});
   <% else %>
-    var myApp = new app.EntryAppView();
+    var myApp = new app.CommentAppView();
   <% end %>
   // myApp.initialize();
 });

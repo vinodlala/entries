@@ -13,10 +13,10 @@
 
 // Our overall **AppView** is the top-level piece of UI.
 // app.AppView = Backbone.View.extend({
-app.EntryAppView = Backbone.View.extend({
+app.CommentAppView = Backbone.View.extend({
   // Instead of generating a new element, bind to the existing skeleton of
   // the App already present in the HTML.
-  el: '#entryapp',
+  el: '#commentapp',
 
   // Our template for the line of statistics at the bottom of the app.
   statsTemplate: _.template( $('#stats-template').html() ),
@@ -24,7 +24,7 @@ app.EntryAppView = Backbone.View.extend({
   // New
   // Delegated events for creating new items, and clearing completed ones.
   events: {
-    'keypress #new-entry': 'createOnEnter',
+    'keypress #new-comment': 'createOnEnter',
     'click #clear-completed': 'clearCompleted',
     'click #toggle-all': 'toggleAllComplete'
   },
@@ -37,31 +37,23 @@ app.EntryAppView = Backbone.View.extend({
       this.user_id = arguments[0].user_id;
     }
     this.allCheckbox = this.$('#toggle-all')[0];
-    this.$input = this.$('#new-entry');
+    this.$input = this.$('#new-comment');
     this.$footer = this.$('#footer');
     this.$main = this.$('#main');
 
-    this.listenTo(app.Entries, 'add', this.addOne);
-    this.listenTo(app.Entries, 'reset', this.addAll);
+    this.listenTo(app.Comments, 'add', this.addOne);
+    this.listenTo(app.Comments, 'reset', this.addAll);
 
     // New
-    this.listenTo(app.Entries, 'change:completed', this.filterOne);
-    this.listenTo(app.Entries, 'filter', this.filterAll);
-    this.listenTo(app.Entries, 'all', this.render);
+    this.listenTo(app.Comments, 'change:completed', this.filterOne);
+    this.listenTo(app.Comments, 'filter', this.filterAll);
+    this.listenTo(app.Comments, 'all', this.render);
 
     //alert("in entries_index initialize, before Entries.fetch()");
     // alert(app.Entries);
     // debugger;
     // alert(app.Entries[story_id]);
-
-//test
-    app.Entries.fetch();
-
-    // app.Entries.fetch({
-    //   success: function () {
-    //     this.render;
-    //   }
-    // });
+    app.Comments.fetch();
     // app.Entries.fetch( {data: {id: 2} });
     //alert(app.Entries);
 
@@ -78,10 +70,10 @@ app.EntryAppView = Backbone.View.extend({
     // debugger;
     // var completed = app.Entries.where({story_id: 3}).completed().length;
     // var remaining = app.Entries.where({story_id: 3}).remaining().length;
-    var completed = app.Entries.completed().length;
-    var remaining = app.Entries.remaining().length;
+    var completed = app.Comments.completed().length;
+    var remaining = app.Comments.remaining().length;
 
-    if ( app.Entries.length ) {
+    if ( app.Comments.length ) {
       this.$main.show();
       this.$footer.show();
 
@@ -92,7 +84,7 @@ app.EntryAppView = Backbone.View.extend({
 
       this.$('#filters li a')
         .removeClass('selected')
-        .filter('[href="#/' + ( app.EntryFilter || '' ) + '"]')
+        .filter('[href="#/' + ( app.CommentFilter || '' ) + '"]')
         .addClass('selected');
     } else {
       this.$main.hide();
@@ -104,27 +96,25 @@ app.EntryAppView = Backbone.View.extend({
 
   // Add a single entry item to the list by creating a view for it, and
   // appending its element to the `<ul>`.
-  addOne: function( entry ) {
-// debugger;
-    var view = new app.EntryView({ model: entry });
-    $('#entry-list').append( view.render().el );
+  addOne: function( comment ) {
+    var view = new app.CommentView({ model: comment });
+    $('#comment-list').append( view.render().el );
   },
 
   // Add all items in the **Entries** collection at once.
   addAll: function() {
-// debugger;
-    this.$('#entry-list').html('');
-    app.Entries.each(this.addOne, this);
+    this.$('#comment-list').html('');
+    app.Comments.each(this.addOne, this);
   },
 
   // New
-  filterOne : function (entry) {
-    entry.trigger('visible');
+  filterOne : function (comment) {
+    comment.trigger('visible');
   },
 
   // New
   filterAll : function () {
-    app.Entries.each(this.filterOne, this);
+    app.Comments.each(this.filterOne, this);
   },
 
 
@@ -136,8 +126,9 @@ app.EntryAppView = Backbone.View.extend({
       title: this.$input.val().trim(),
       description: this.$input.val().trim(),
       user_id: this.user_id,
-      story_id: app.Entries.story_id,
-      order: app.Entries.nextOrder(),
+      entry_id: app.Comments.entry_id,
+      story_id: app.Comments.story_id,
+      order: app.Comments.nextOrder(),
       completed: false
     };
   },
@@ -151,8 +142,8 @@ app.EntryAppView = Backbone.View.extend({
     if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
       return;
     }
-
-    app.Entries.create( this.newAttributes(), { wait: true } );
+    // debugger;
+    app.Comments.create( this.newAttributes(), { wait: true } );
     // debugger;
     this.$input.val('');
   },
@@ -160,7 +151,7 @@ app.EntryAppView = Backbone.View.extend({
   // New
   // Clear all completed entry items, destroying their models.
   clearCompleted: function() {
-    _.invoke(app.Entries.completed(), 'destroy');
+    _.invoke(app.Comments.completed(), 'destroy');
     return false;
   },
 
@@ -168,8 +159,8 @@ app.EntryAppView = Backbone.View.extend({
   toggleAllComplete: function() {
     var completed = this.allCheckbox.checked;
 
-    app.Entries.each(function( entry ) {
-      entry.save({
+    app.Comments.each(function( comment ) {
+      comment.save({
         'completed': completed
       });
     });
