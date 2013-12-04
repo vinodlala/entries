@@ -1,0 +1,29 @@
+<h1>Listing collaborators</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Story</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collaborators.each do |collaborator| %>
+      <tr>
+        <td><%= collaborator.story_id %></td>
+        <td><%= collaborator.user_id %></td>
+        <td><%= link_to 'Show', collaborator %></td>
+        <td><%= link_to 'Edit', edit_collaborator_path(collaborator) %></td>
+        <td><%= link_to 'Destroy', collaborator, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collaborator', new_collaborator_path %>

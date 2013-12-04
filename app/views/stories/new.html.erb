@@ -2,8 +2,105 @@
 <br>
 <br>
 <br>
-<h1>Enter the Information for a New Story</h1>
+<%= form_for(@story) do |f| %>
+  <% if @story.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@story.errors.count, "error") %> prohibited this story from being saved:</h2>
 
-<%= render 'form' %>
+      <ul>
+      <% @story.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= link_to 'Back', stories_path %>
+<div id="info">
+    Directions: Change the title and description of the story.  These can still be edited later.
+</div>
+<br>
+<br>
+<div class="view">
+  <%= f.label :title %> of story<br>
+  <%= f.text_area :title %>
+</div>
+<br>
+<br>
+
+Title Tips:<br><br>
+A title can entice a reader to take a closer look at a story.<br><br>
+A title should be interesting, convey the tone or central idea of the story, and be easy to remember.<br><br>
+A title can include a word or phrase that runs through the story or has a hidden meaning revealed in the story.<br><br>
+A title can include the name of a character or place important to the plot.<br><br>
+A title can be a play on words or a popular expression related to the story's subject.<br><br>
+A title is commonly three words long, but can be one word.<br><br>
+Titles with more than six words are uncommon.<br><br>
+
+<br><br>
+
+<div class="field">
+  <%= f.label :description %> of story<br>
+  <%= f.text_area :description %><br>
+</div>
+
+<br><br>
+
+Description Tips:<br><br>
+
+Give a short summary of the contents and plot.<br><br>
+Ask unanswered questions without giving away the story ("Will Mary find out who the mysterious visitor is?").<br><br>
+Be persuasive and encourage interest.<br><br>
+Discuss or quote the main character.<br><br>
+Describe the setting.<br><br>
+
+
+<div id="info">
+You can write a story by yourself, or you can collaborate with ONE other writer.
+<br>
+This CANNOT be changed.
+<br>
+If you choose to collaborate with someone, pick one writer from the following list:
+</div>
+
+<br>
+
+
+
+
+
+
+
+<br>
+
+<select size="30" id="story_collaborators" name="collaborator_id">
+
+  <% @user.each do |user| %>
+    <% if current_user.id != user.id %>
+      <option value="<%= user.id %>">  <%= user.name %></option>
+    <% end %>
+  <% end %>
+
+</select>
+
+
+<br><br><br>
+
+This doesn't work yet.  Don't know how to add multiple collaborators.
+<div class="multiselect">
+  <% @user.each do |user| %>
+    <% if current_user.id != user.id %>
+      <label><input name="collaborator_ids[]" type="checkbox" value="<%= user.id %>" />  <%= user.name %></label>
+    <% end %>
+  <% end %>
+</div>
+
+<br><br><br>
+
+
+
+
+<div class="actions">
+  <%= f.submit %>
+</div>
+
+<% end %>

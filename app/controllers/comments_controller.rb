@@ -28,10 +28,13 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+
     Pusher.url = "http://6cf8dfb25489020a860b:2d36b119c7b193cf1314@api.pusherapp.com/apps/59201"
 
     respond_to do |format|
       if @comment.save
+
         Pusher['story_1_entries'].trigger('new_comment_event', @comment.to_json)
 
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }

@@ -10,16 +10,20 @@ app.EntryView = Backbone.View.extend({
   tagName: 'li',
 
   // Cache the template function for a single item.
-  template: _.template( $('#item-template').html() ),
+  template: _.template( $('#entry-template').html() ),
 
   // The DOM events specific to an item.
   events: {
-    'click .toggle': 'togglecompleted', // NEW
+    // 'click .toggle': 'togglecompleted', // NEW
     'dblclick label': 'edit',
     'click .destroy': 'clear',           // NEW
 
-    'click .goto': 'goToEntry',           // NEW
+    // 'click .goto': 'goToEntry',           // NEW
 
+    // 'click .go-to-entry-button': 'goToEntry',
+
+    // 'click .go-to-comments-button': 'goToComments',
+    'click .go-to-comments-anchor': 'goToEntryComments',
 
     'keypress .edit': 'updateOnEnter',
     'blur .edit': 'close'
@@ -66,8 +70,19 @@ app.EntryView = Backbone.View.extend({
 
   // Switch this view into `"editing"` mode, displaying the input field.
   edit: function() {
-    this.$el.addClass('editing');
-    this.$input.focus();
+    // this works for anyone editing anyone else's entry Vin 12/4
+    // this.$el.addClass('editing');
+    // this.$input.val(this.model.get("description"));
+    // this.$input.focus();
+
+    // debugger;
+    if (this.model.get("user_id") == window.current_user) {
+      this.$el.addClass('editing');
+      this.$input.val(this.model.get("description"));
+      this.$input.focus();
+    } else {
+      alert("You can only edit entries you wrote.");
+    }
   },
 
   // Close the `"editing"` mode, saving changes to the entry.
@@ -96,26 +111,56 @@ app.EntryView = Backbone.View.extend({
   clear: function() {
     this.model.destroy();
   },
-  goToEntry: function () {
+  // goToEntry: function () {
+  //   // debugger;
+  //   // app.StoryRouter.route("stories/1");
+  //   // alert("stories.js - goToEntry - this.model: " + this.model);
+
+  //   // alert("stories.js - goToEntry - this.model.id: " + this.model.id);
+
+  //   // alert("stories.js - goToEntry - this.model.story_id: " + this.model.story_id);
+
+  //   // alert("stories.js - goToEntry - this.model.collection.story_id: " + this.model.collection.story_id);
+
+  //   // alert("stories.js - goToEntry - this.collection.story_id: " + this.collection.story_id);
+  //   // debugger;
+
+  //   theroute = 'stories/' + this.model.collection.story_id + '/entries/' + this.model.id + '/comments';
+  //   //alert("stories.js - goToStory - theroute:" + theroute);
+  //   // app.EntryRouter.navigate(theroute, {trigger:true});
+
+  //   // making one router only, story router
+  //   app.StoryRouter.navigate(theroute, {trigger:true});
+
+  // },
+  goToEntryComments: function () {
     // debugger;
-    // app.StoryRouter.route("stories/1");
-    // alert("stories.js - goToEntry - this.model: " + this.model);
-
-    // alert("stories.js - goToEntry - this.model.id: " + this.model.id);
-
-    // alert("stories.js - goToEntry - this.model.story_id: " + this.model.story_id);
-
-    // alert("stories.js - goToEntry - this.model.collection.story_id: " + this.model.collection.story_id);
-
-    // alert("stories.js - goToEntry - this.collection.story_id: " + this.collection.story_id);
-    // debugger;
-
     theroute = 'stories/' + this.model.collection.story_id + '/entries/' + this.model.id + '/comments';
     //alert("stories.js - goToStory - theroute:" + theroute);
     // app.EntryRouter.navigate(theroute, {trigger:true});
 
     // making one router only, story router
-    app.StoryRouter.navigate(theroute, {trigger:true});
+
+
+    // killing .navigate so user does not bother with urls vin 12/3
+    // app.StoryRouter.navigate(theroute, {trigger:true});
+
+    app.Comments = new CommentList();
+    app.Comments.entry_id = this.model.id;
+    app.Comments.story_id = this.model.collection.story_id;
+    // var myApp3 = new app.CommentAppView({user_id: 66});
+
+
+
+    // var myApp3 = new app.CommentAppView({});
+    var myApp3 = new app.CommentAppView({entry_description: this.model.get('description')});
+    // debugger;
+
+
+
+    // var myApp3 = new app.CommentAppView({user_id: <%= current_user.id %>});
+    // var myApp = new app.CommentAppView();
+
 
   }
 });

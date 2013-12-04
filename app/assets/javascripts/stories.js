@@ -1,6 +1,6 @@
 var app = app || {};
 
-// Story Item View
+// This is the view for a single story
 // --------------
 
 // The DOM element for a story item...
@@ -10,7 +10,7 @@ app.StoryView = Backbone.View.extend({
   tagName: 'li',
 
   // Cache the template function for a single item.
-  template: _.template( $('#item-template').html() ),
+  template: _.template( $('#story-template').html() ),
 
   // The DOM events specific to an item.
   events: {
@@ -18,8 +18,17 @@ app.StoryView = Backbone.View.extend({
     // 'dblclick label': 'edit',
     'click .destroy': 'clear',           // NEW
 
-    'click .goto': 'goToStory',           // NEW
+    // 'click .goto': 'goToStory',           // NEW
 
+
+    // 'click .add-new-story-button': 'AddNewStory',
+    'click .add-new-story-anchor': 'AddNewStory', //not working?
+
+    // 'click .go-to-story-button': 'goToStory',
+    'click .go-to-story-anchor': 'goToStoryEntries',
+
+    // 'click .edit-info-about-story-button': 'editInfoAboutStory',
+    'click .edit-info-about-story-anchor': 'editInfoAboutStory',
     // 'keypress .edit': 'updateOnEnter',
     'blur .edit': 'close'
   },
@@ -28,6 +37,7 @@ app.StoryView = Backbone.View.extend({
   // a one-to-one correspondence between an **Entry** and an **EntryView** in this
   // app, we set a direct reference on the model for convenience.
   initialize: function() {
+    // debugger;
     this.listenTo(this.model, 'change', this.render);
     this.listenTo(this.model, 'destroy', this.remove);        // NEW
     // this.listenTo(this.model, 'visible', this.toggleVisible); // NEW
@@ -97,15 +107,78 @@ app.StoryView = Backbone.View.extend({
   clear: function() {
     this.model.destroy();
   },
-  goToStory: function () {
+
+  editInfoAboutStory: function () {
+    theroute = '/stories/' + this.model.id + '/edit';
+    app.StoryRouter.navigate(theroute, {trigger:true});
+    window.location = theroute;
+  },
+  addNewStory: function () {
+    // debugger;
+    // app.StoryRouter.route("stories/1");
+    //alert("stories.js - goToStory - this.model.id: " + this.model.id);
+
+    debugger;
+    theroute = '/stories/new';
+    //alert("stories.js - goToStory - theroute:" + theroute);
+    app.StoryRouter.navigate(theroute, {trigger:true});
+    window.location = theroute;
+    // app.StoryRouter.navigate(theroute);
+
+
+
+
+  },
+  goToStoryEntries: function () {
     // debugger;
     // app.StoryRouter.route("stories/1");
     //alert("stories.js - goToStory - this.model.id: " + this.model.id);
 
     theroute = 'stories/' + this.model.id + '/entries';
     //alert("stories.js - goToStory - theroute:" + theroute);
-    app.StoryRouter.navigate(theroute, {trigger:true});
+
+
+    // removing .navigate  so user does not save url vin 12/3
+    // app.StoryRouter.navigate(theroute, {trigger:true});
+
+
     // app.StoryRouter.navigate(theroute);
+
+    app.Entries = new EntryList(); // js/collections/entries.js
+
+    app.Entries.story_id = this.model.id;
+
+    // added title to entry list Vin 12/2
+
+    // app.Entries.title = this.model.title;
+
+    // debugger;
+  // app.Entries.story_id = <%= @story.id %>;
+
+    // var myApp2 = new app.EntryAppView({user_id: 66});
+
+    // this works Vin 12/4
+    // var myApp2 = new app.EntryAppView({story_title: this.model.get('title')});
+
+    // trying this Vin 12/4
+    // debugger;
+    // this works for creator, not collaborators
+    // var myApp2 = new app.EntryAppView({user_id: this.model.get('user_id'), story_title: this.model.get('title')});
+
+    var myApp2 = new app.EntryAppView({user_id: this.model.get('user_id'),
+      story_title: this.model.get('title'),
+      collaborators_ids: this.model.get('collaborators_ids')
+    });
+
+
+
+    // var myApp2 = new app.EntryAppView({user_id: <%= current_user.id %>});
+
+// $("#storyapp").html()
+
+
+    // app.StoryAppView.remove();
+
 
   }
 });

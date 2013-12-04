@@ -1,35 +1,27 @@
 var app = app || {};
 
-// Entry Collection
+// Story Collection
 // ---------------
 
-// The collection of entries is backed by *localStorage* instead of a remote
+// The collection of stories is backed by *localStorage* instead of a remote
 // server.
-var EntryList = Backbone.Collection.extend({
+var CollaboratorList = Backbone.Collection.extend({
 
   // Reference to this collection's model.
-  model: app.Entry, // js/models/entrys.js
+  model: app.User,
 
   // story_id: null,
-  // story_id: 2,
-
 
   // Set the url property (or function) on a collection to reference its location on the server.
-  // url: '/entries',
-  url: function() {
-    return '/stories/' + this.story_id + '/entries';
-  },
+  url: '/users',
   // url: function() {
   //   '/story/' + this.story_id + '/entries'
-  // },
-  // url: 'stories' + this.model.id  + '/entries',
-  // url: 'stories' + 2 + '/entries',
-
+  // }
 
   // Filter down the list of all entry items that are finished.
   completed: function() {
-    return this.filter(function( entry ) {
-      return entry.get('completed');
+    return this.filter(function( story ) {
+      return story.get('completed');
     });
   },
 
@@ -54,6 +46,4 @@ var EntryList = Backbone.Collection.extend({
 });
 
 // Create our global collection of **Entries**.
-// alert("js/collections/entries.js - before app.Entries = new EntryList()")
-// app.Entries = new EntryList();
-// app.Entries = new EntryList( {story_id: 2} );
+// app.Collaboratorss = new CollaboratorList();

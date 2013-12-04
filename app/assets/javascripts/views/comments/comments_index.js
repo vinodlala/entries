@@ -1,3 +1,5 @@
+// This is the view for a bunch of comments
+
 // Entries.Views.EntriesIndex = Backbone.View.extend({
 
 //   template: JST['entries/index']
@@ -16,10 +18,11 @@
 app.CommentAppView = Backbone.View.extend({
   // Instead of generating a new element, bind to the existing skeleton of
   // the App already present in the HTML.
-  el: '#commentapp',
+  el: '#storyapp',
 
   // Our template for the line of statistics at the bottom of the app.
-  statsTemplate: _.template( $('#stats-template').html() ),
+  // statsTemplate: _.template( $('#stats-template').html() ),
+  statsTemplate: _.template( $('#stats-template-comments').html() ),
 
   // New
   // Delegated events for creating new items, and clearing completed ones.
@@ -33,9 +36,17 @@ app.CommentAppView = Backbone.View.extend({
   // collection, when items are added or changed. Kick things off by
   // loading any preexisting entries that might be saved in *localStorage*.
   initialize: function() {
+
+    alert("comments_index initialize");
     if (!_.isUndefined(arguments[0].user_id)) {
       this.user_id = arguments[0].user_id;
     }
+
+    if (!_.isUndefined(arguments[0].entry_description)) {
+      this.entry_description = arguments[0].entry_description;
+    }
+    // this
+
     this.allCheckbox = this.$('#toggle-all')[0];
     this.$input = this.$('#new-comment');
     this.$footer = this.$('#footer');
@@ -43,6 +54,17 @@ app.CommentAppView = Backbone.View.extend({
 
     this.listenTo(app.Comments, 'add', this.addOne);
     this.listenTo(app.Comments, 'reset', this.addAll);
+    this.listenTo(app.Comments, 'sync', function (req){
+      // if (req.collection){
+      //   app.Stories.add(req);
+      // }
+      // }
+      // console.log('just added: '+req.id);
+    });
+
+    this.$('#new-story').hide();
+    this.$('#new-entry').hide();
+    this.$('#new-comment').show();
 
     // New
     this.listenTo(app.Comments, 'change:completed', this.filterOne);
@@ -54,7 +76,19 @@ app.CommentAppView = Backbone.View.extend({
     // debugger;
     // alert(app.Entries[story_id]);
     app.Comments.fetch();
+
+// debugger;
+    alert("after fetch, before #headerEntry fill in");
+
+    // this.$('#headerEntry').show();
+
+
+    // $('#headerTitle').html(this.entry_description);
+    $('#headerEntry').html("Entry being commented on:<br><br>" + this.entry_description + "<br>");
+
+    alert("after #headerEntry filled in");
     // app.Entries.fetch( {data: {id: 2} });
+
     //alert(app.Entries);
 
     // alert(app.Entries[story_id]);
@@ -67,6 +101,7 @@ app.CommentAppView = Backbone.View.extend({
   // Re-rendering the App just means refreshing the statistics -- the rest
   // of the app doesn't change.
   render: function() {
+    console.log("comments index render called");
     // debugger;
     // var completed = app.Entries.where({story_id: 3}).completed().length;
     // var remaining = app.Entries.where({story_id: 3}).remaining().length;
@@ -87,23 +122,39 @@ app.CommentAppView = Backbone.View.extend({
         .filter('[href="#/' + ( app.CommentFilter || '' ) + '"]')
         .addClass('selected');
     } else {
-      this.$main.hide();
+      // vin 12/3 trying to make entry appear at top of comments index
+      // this.$main.hide();
       this.$footer.hide();
     }
 
-    this.allCheckbox.checked = !remaining;
+    this.addAll();
+    // this.allCheckbox.checked = !remaining;
   },
 
   // Add a single entry item to the list by creating a view for it, and
   // appending its element to the `<ul>`.
   addOne: function( comment ) {
+    // debugger;
+    // alert("comments_index addOne")
+    console.log("comments_index addOne");
     var view = new app.CommentView({ model: comment });
-    $('#comment-list').append( view.render().el );
+    $('#story-list').append( view.render().el );
   },
 
   // Add all items in the **Entries** collection at once.
   addAll: function() {
-    this.$('#comment-list').html('');
+    // debugger;
+    console.log("comments_index addAll");
+    // alert("comments_index addAll");
+    // this.$('#story-list').html('');
+    $('#story-list').html('');
+
+
+    // $('#story-list').html('<li><div class="view"><div><label id="headerEntry"></label></div></div></li>');
+
+
+
+    // this.$('#comment-list').html('');
     app.Comments.each(this.addOne, this);
   },
 
@@ -142,10 +193,13 @@ app.CommentAppView = Backbone.View.extend({
     if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
       return;
     }
-    // debugger;
+    debugger;
     app.Comments.create( this.newAttributes(), { wait: true } );
-    // debugger;
+    debugger;
     this.$input.val('');
+
+    // this.$input.val('Click here, type a comment and press ENTER to add a new comment to the paragraph entry.');
+    this.$input.attr("placeholder", "Click here, type a comment and press ENTER to add a new comment to the paragraph entry.");
   },
 
   // New

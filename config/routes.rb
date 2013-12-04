@@ -1,4 +1,6 @@
 Entries::Application.routes.draw do
+  resources :collaborators
+
   resources :comments
 
   # changed pathnames so sign_in is login and sign_out is logout

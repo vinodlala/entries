@@ -6,8 +6,13 @@ class EntriesController < ApplicationController
   def index
     @story = Story.find(params[:story_id])
     # @entries = @story.entries
-    @entries = @story.entries.order(:id)
 
+    # returns all entries for a specific story in order by id
+    # @entries = @story.entries.order(:id)
+
+    # returns all entries for a specific story in order by id wih user info
+    # @entries = @story.entries.includes(:user).order(:id)
+    @entries = @story.entries.order(:id).includes(:story)
   end
 
   # GET /entries/1
@@ -28,10 +33,13 @@ class EntriesController < ApplicationController
   # POST /entries.json
   def create
     @entry = Entry.new(entry_params)
+    @entry.user_id = current_user.id
+
     Pusher.url = "http://6cf8dfb25489020a860b:2d36b119c7b193cf1314@api.pusherapp.com/apps/59201"
 
     respond_to do |format|
       if @entry.save
+
         Pusher['story_1_entries'].trigger('new_entry_event', @entry.to_json)
 
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }

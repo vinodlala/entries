@@ -10,13 +10,19 @@ app.CommentView = Backbone.View.extend({
   tagName: 'li',
 
   // Cache the template function for a single item.
-  template: _.template( $('#item-template').html() ),
+  template: _.template( $('#comment-template').html() ),
 
   // The DOM events specific to an item.
   events: {
     'click .toggle': 'togglecompleted', // NEW
     'dblclick label': 'edit',
     'click .destroy': 'clear',           // NEW
+
+
+
+
+
+
     'keypress .edit': 'updateOnEnter',
     'blur .edit': 'close'
   },
@@ -62,8 +68,17 @@ app.CommentView = Backbone.View.extend({
 
   // Switch this view into `"editing"` mode, displaying the input field.
   edit: function() {
-    this.$el.addClass('editing');
-    this.$input.focus();
+    // this.$el.addClass('editing');
+    // this.$input.focus();
+
+    if (this.model.get("user_id") == window.current_user) {
+      this.$el.addClass('editing');
+      this.$input.val(this.model.get("description"));
+      this.$input.focus();
+    } else {
+      alert("You can only edit comments you wrote.");
+    }
+
   },
 
   // Close the `"editing"` mode, saving changes to the entry.

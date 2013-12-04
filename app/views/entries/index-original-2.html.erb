@@ -1,0 +1,122 @@
+  <div id="info">
+    <p>To edit an EXISTING entry, double-click it, change it, and press ENTER.</p>
+    <p>To create a NEW entry, type in the bottom box and press ENTER.</p>
+  </div>
+
+  <section id="title2"><h1><%= @story.description %></h1></section>
+
+  <section id="entryapp">
+
+    <header id="header">
+<!--       <h1>Story Title</h1> -->
+      <!-- <h1>A Fullstack Story</h1> -->
+      <!-- <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus> -->
+    </header>
+
+    <section id="main">
+      <input id="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul id="entry-list"></ul>
+    </section>
+
+    <!-- <header> -->
+    <!-- <header id="header"> -->
+      <!-- <h1>Story Title</h1> -->
+      <% if true %>
+      <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus>
+      <% end %>
+    <!-- </header> -->
+
+    <footer id="footer"></footer>
+
+  </section>
+
+  <div id="info">
+    <p></p>
+  </div>
+
+  <!-- old script was here -->
+  <script type="text/template" id="entry-template">
+    <div class="view">
+
+
+      <%% if (false) { %>
+      <button class="destroy"></button>
+      <%% } %>
+
+
+      <input class="toggle" type="checkbox" <%%= completed ? 'checked' : '' %>>
+
+
+
+      <div><label><%%- description %></label></div>
+      <div><label class="entry-writers">By: user1, user2, user3</label></div>
+
+      <button class="goto"></button>
+
+      <button id="go-to-comments-button" class="button go-to-comments-button">Go to comments for this entry</button>
+
+      <a id="go-to-comments-anchor" class="go-to-comments-anchor">Go to comments for this entry</a>
+
+    </div>
+    <textarea class="edit" value="<%%- description %>">
+  </script>
+
+  <script type="text/template" id="stats-template">
+    <span id="entry-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'entry' : 'entries' %> written</span>
+    <ul id="filters">
+      <li>
+        <a class="selected" href="#/">All</a>
+      </li>
+      <li>
+        <a href="#/active">Active</a>
+      </li>
+      <li>
+        <a href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <%% if (completed) { %>
+    <button id="clear-completed">Clear completed (<%%= completed %>)</button>
+    <%% } %>
+  </script>
+
+  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var pusher = new Pusher('6cf8dfb25489020a860b');
+    var channel = pusher.subscribe('story_1_entries');
+    channel.bind('new_entry_event', function(data) {
+      debugger;
+
+      if(app.Entries.where({id: data.id}).length === 0) {
+        app.Entries.add(data);
+      }
+    });
+  </script>
+
+
+<% content_for :javascripts_footer do %>
+<script type="text/javascript">
+$(function() {
+  alert('in index.html.erb for ENTRIES, not STORIES');
+
+  // Kick things off by creating the **App**.
+  // var myApp = new app.AppView();
+  app.Entries = new EntryList();
+  app.Entries.story_id = <%= @story.id %>;
+
+    // Trigger a collection filter event, causing hiding/unhiding
+    // of Todo view items
+    // moved from entries router
+    // app.Entries.trigger('filter');
+
+
+  // var myApp = new app.EntryAppView();
+  <% if current_user %>
+    var myApp = new app.EntryAppView({user_id: <%= current_user.id %>});
+  <% else %>
+    var myApp = new app.EntryAppView();
+  <% end %>
+  // myApp.initialize();
+});
+</script>
+<% end %>

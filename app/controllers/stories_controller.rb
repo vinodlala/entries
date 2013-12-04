@@ -4,7 +4,13 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.all
+    # returns user information along with story
+    # @stories = Story.includes(:user).all
+
+
+    # @stories = Story.includes([:user, {:collaborator => :user}]).all
+    @stories = Story.includes( [ :user, :users ]).all
+
   end
 
   # GET /stories/1
@@ -15,6 +21,7 @@ class StoriesController < ApplicationController
   # GET /stories/new
   def new
     @story = Story.new
+    @user = User.all
   end
 
   # GET /stories/1/edit
@@ -36,6 +43,26 @@ class StoriesController < ApplicationController
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
+
+
+# adding collaborators vin 12/3
+# works for one collaborator
+    @collaborator_id = params[:collaborator_id]
+    Collaborator.create(:story_id => @story.id, :user_id => @collaborator_id)
+
+# trying multiple collaborators
+    @collaborator_ids = params[:collaborator_ids]
+
+    @collaborator_ids.each { |collaborator_id |
+      Collaborator.create(:story_id => @story.id, :user_id => collaborator_id)
+    }
+
+
+
+    # redirect "/"
+
+
+
   end
 
   # PATCH/PUT /stories/1

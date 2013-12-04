@@ -1,29 +1,100 @@
   <div id="info">
-    <p>To edit an EXISTING entry, double-click it, change it, and press ENTER.</p>
-    <p>To create a NEW entry, type in the bottom box and press ENTER.</p>
+    <p>To add a NEW story, click the link at the top of this list.</p>
+    <p>To add to an EXISTING story, hover over the story and click the green arrow.</p>
   </div>
 
-  <section id="title2"><h1><%= @story.description %></h1></section>
-
-  <section id="entryapp">
-
+  <section id="storyapp">
     <header id="header">
-<!--       <h1>Story Title</h1> -->
+      <h1 id="headerTitle">Story Stacker</h1>
+
+
+
+
+<!--       <div class="view">
+        <div><label class="view headerEntry" id="headerEntry"></label></div>
+      <div> -->
+
+
+
+
+
       <!-- <h1>A Fullstack Story</h1> -->
-      <!-- <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus> -->
+
+      <!-- <textarea id="new-story" placeholder="Click here to add a new story to the list." autofocus></textarea> -->
+
+      <% if user_signed_in? %>
+
+        <div class="view new-story" id="new-story">
+          <div><label class="story-title"><a class="add-new-story-anchor" href="/stories/new">Click here to add a new story</a></label></div>
+        </div>
+
+        <% if false %>
+          <input id="new-story" placeholder="Click here to add a new story to the list." autofocus>
+        <% end %>
+
+        <% if false %>
+          <input id="new-story" placeholder="Click the button to add a story." autofocus>
+        <% end %>
+
+<!--       <input id="new-story" placeholder="Click here to add a new story to the list." autofocus> -->
+<!--       <button type="button" id="new-story-button">New Story</button> -->
+
+        <% if false %>
+          <button id="new-story-button" class="button add-new-story-button">Add New Story</button>
+        <% end %>
+
+      <% end %>
+
     </header>
 
     <section id="main">
       <input id="toggle-all" type="checkbox">
-      <label for="toggle-all">Mark all as complete</label>
-      <ul id="entry-list"></ul>
+      <!-- commenting out the checkbox breaks story list (only returns first)-->
+      <!-- <input id="toggle-all" type="checkbox" display="none" visibility="hidden"> -->
+
+
+
+      <!-- <label for="toggle-all">Mark all as complete</label> -->
+
+
+      <ul id="story-list-entry">
+        <li>
+          <div class="view">
+            <div><label id="headerEntry"></label></div>
+          </div>
+        </li>
+      </ul>
+
+      <ul id="story-list"></ul>
+
+<!--       <ul id="story-list">
+        <li>
+          <div class="view">
+            <div><label id="headerEntry"></label></div>
+          </div>
+        </li>
+      </ul> -->
+
     </section>
 
-    <!-- <header> -->
-    <!-- <header id="header"> -->
+<!--     <header id="header"> -->
       <!-- <h1>Story Title</h1> -->
-      <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus>
+<!--       <input id="new-entry" placeholder="Click here to add a new entry to the story." autofocus> -->
     <!-- </header> -->
+
+
+
+
+      <% if user_signed_in? %>
+      <input id="new-entry" class="view new-entry" placeholder="Click here to add a new entry to the story." autofocus>
+      <% end %>
+
+      <% if user_signed_in? %>
+      <input id="new-comment" class="view new-comment" placeholder="Click here to add a new comment to the entry." autofocus>
+      <% end %>
+
+
+
 
     <footer id="footer"></footer>
 
@@ -34,29 +105,109 @@
   </div>
 
   <!-- old script was here -->
-  <script type="text/template" id="item-template">
+  <script type="text/template" id="story-template">
+
     <div class="view">
 
+      <%% if (true) { %>
+        <button class="destroy"></button>
+      <%% } %>
+
+      <div><label class="story-title"><a class="go-to-story-anchor"><%%- title %></a></label></div>
+
+      <div><label class="story-writers">By: <%%- name %></label></div>
+
+      <div><label><%%- description %></label></div>
+
+      <div><label class="story-dates">Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
+
+      <%% if (true) { %>
+        <div><label><a class="edit-info-about-story-anchor">Edit story info</button></label></div>
+      <%% } %>
 
       <%% if (false) { %>
+        <button class="goto"></button>
+      <%% } %>
+
+    </div>
+
+    <textarea class="edit"><%%- description %></textarea>
+
+  </script>
+
+
+  <script type="text/template" id="entry-template">
+    <div class="view">
+
+      <%% if (true) { %>
       <button class="destroy"></button>
       <%% } %>
 
-
+      <%% if (false) { %>}
       <input class="toggle" type="checkbox" <%%= completed ? 'checked' : '' %>>
-
-
+      <%% } %>
 
       <div><label><%%- description %></label></div>
-      <div><label class="entry-writers">By: user1, user2, user3</label></div>
 
-      <button class="goto"></button>
+      <%% if (false) { %>
+      <div><label class="story-writers">By: <%%- user_id %></label></div>
+      <%% } %>
+
+      <%% if (true) { %>
+      <div><label class="entry-writers">By: <%%- name %></label></div>
+      <%% } %>
+
+      <%% if (true) { %>
+      <div><label class="story-dates">Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
+      <%% } %>
+
+      <div><label><a class="go-to-comments-anchor">Go to comments for this entry</label></div></a>
+
+    </div>
+
+    <textarea class="edit" value="<%%- description %>">
+
+  </script>
+
+
+
+
+  <script type="text/template" id="comment-template">
+    <div class="view">
+
+      <%% if (true) { %>
+      <button class="destroy"></button>
+      <%% } %>
+
+      <%% if (false) { %>
+      <input class="toggle" type="checkbox" <%%= completed ? 'checked' : '' %>>
+      <%% } %>
+
+      <div><label><%%- description %></label></div>
+
+      <div><label class="entry-writers">By: <%%- name %></label></div>
+
+     <%% if (true) { %>
+      <div><label class="story-dates">Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
+      <%% } %>
+
     </div>
     <textarea class="edit" value="<%%- description %>">
   </script>
 
+
+
+
+
+
+
+
+
+
+
+<!-- <input class="edit" value="<%%- description %>"> -->
   <script type="text/template" id="stats-template">
-    <span id="entry-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'entry' : 'entries' %> written</span>
+    <span id="story-count"><strong><%%= remaining %></strong> <%%= remaining === 1 ? 'story' : 'stories' %></span>
     <ul id="filters">
       <li>
         <a class="selected" href="#/">All</a>
@@ -73,38 +224,26 @@
     <%% } %>
   </script>
 
-  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    var pusher = new Pusher('6cf8dfb25489020a860b');
-    var channel = pusher.subscribe('story_1_entries');
-    channel.bind('new_entry_event', function(data) {
-      // debugger;
-      if(app.Entries.where({id: data.id}).length === 0) {
-        app.Entries.add(data);
-      }
-    });
-  </script>
+
+
+
+
 
 <% content_for :javascripts_footer do %>
 <script type="text/javascript">
 $(function() {
 
+
+    alert('in index.html.erb for ENTRIES');
+  // debugger;
+//  only kicks off the first time?
+  // alert("javascripts_footer from views/stories/index.html.erb");
   // Kick things off by creating the **App**.
   // var myApp = new app.AppView();
-  app.Entries = new EntryList();
-  app.Entries.story_id = <%= @story.id %>;
-
-    // Trigger a collection filter event, causing hiding/unhiding
-    // of Todo view items
-    // moved from entries router
-    // app.Entries.trigger('filter');
-
-
-  // var myApp = new app.EntryAppView();
   <% if current_user %>
-    var myApp = new app.EntryAppView({user_id: <%= current_user.id %>});
+    var myApp = new app.StoryAppView({user_id: <%= current_user.id %>});
   <% else %>
-    var myApp = new app.EntryAppView();
+    var myApp = new app.StoryAppView();
   <% end %>
   // myApp.initialize();
 });

@@ -1,3 +1,8 @@
+<br>
+<br>
+<br>
+<br>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -13,6 +18,7 @@
 <p>
   <strong>User:</strong>
   <%= @story.user_id %>
+    <%= @story.user.name %>
 </p>
 
 <%= link_to 'Edit', edit_story_path(@story) %> |

@@ -1,3 +1,5 @@
-// Entries.Models.User = Backbone.Model.extend({
+var app = app || {};
 
-// });
+app.User = Backbone.Model.extend({
+
+});

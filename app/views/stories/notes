@@ -1,0 +1,52 @@
+color of cover
+color of font
+font style
+
+front cover: illustration title, author(s)
+
+spine: title, author(s)
+
+back cover: description
+introduce main character
+give short summar of contents and plot
+ask unanswered question without giving away the story ("will mary find out who the mysterious visitor is?")
+be persuasive and encourage interest
+
+back flap
+about the author
+review from newspaper
+
+front flap
+quote sentence by main character
+something about the main character
+setting
+
+
+
+
+
+new
+
+<br>
+<br>
+<br>
+<br>
+<h1>Enter the Information for a New Story</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', stories_path %>
+
+
+edit
+
+<br>
+<br>
+<br>
+<br>
+<h1>Edit the Information of an Existing Story</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @story %> |
+<%= link_to 'Back', stories_path %>

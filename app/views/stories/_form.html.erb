@@ -11,39 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
+<div id="info">
+Fill in the title and description of the story.  These can be edited later.
+</div>
+  <div class="view">
     <%= f.label :title %> of story<br>
-    <%= f.text_field :title %>
+    <%= f.text_area :title %>
   </div>
 
   <div class="field">
     <%= f.label :description %> of story<br>
     <%= f.text_area :description %>
+    Give a short summary of the contents and plot.
+    Ask unanswered questions without giving away the story ("Will Mary find out who the mysterious visitor is?").
+    Be persuasive and encourage interest.
+    Discuss or quote the main character.
+    Describe the setting.
   </div>
 
+<div id="info">
+You can write a story by yourself, or you can collaborate with ONE other writer.
+<br>
+This CANNOT be changed.
 
-color of cover
-color of font
-font style
+If you choose to collaborate with someone, pick one writer from the following list:
 
-front cover: illustration title, author(s)
+</div>
 
-spine: title, author(s)
 
-back cover: description
-introduce main character
-give short summar of contents and plot
-ask unanswered question without giving away the story ("will mary find out who the mysterious visitor is?")
-be persuasive and encourage interest
 
-back flap
-about the author
-review from newspaper
-
-front flap
-quote sentence by main character
-something about the main character
-setting
   <br>
 
   <div class="actions">
