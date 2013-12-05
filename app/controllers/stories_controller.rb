@@ -53,9 +53,11 @@ class StoriesController < ApplicationController
 # trying multiple collaborators
     @collaborator_ids = params[:collaborator_ids]
 
-    @collaborator_ids.each { |collaborator_id |
-      Collaborator.create(:story_id => @story.id, :user_id => collaborator_id)
-    }
+    if @collaborator_ids.kind_of?(Array)
+      @collaborator_ids.each { |collaborator_id |
+        Collaborator.create(:story_id => @story.id, :user_id => collaborator_id)
+      }
+    end
 
 
 

@@ -69,20 +69,19 @@ app.EntryAppView = Backbone.View.extend({
 
     });
 
-
-
     this.$('#new-story').hide();
     // this.$('#new-entry').show();
     this.$('#new-comment').hide();
 
-
-
-// Vin 12/4 trying to show new-entry only for story writer/collaborators
+    // Vin 12/4 trying to show new-entry only for story writer/collaborators
     // alert("this.user_id");
     // alert(this.user_id);
     // alert("window.current_user");
     // alert(window.current_user);
-    // debugger;
+    debugger;
+    if (!_.isUndefined(arguments[0].story_title)) {
+      this.story_title = arguments[0].story_title;
+    }
 
     this.collaborators_ids = [];
     if (!_.isUndefined(arguments[0].collaborators_ids)) {
@@ -111,13 +110,20 @@ app.EntryAppView = Backbone.View.extend({
 
 //Desmond test commented this out to try success:
     app.Entries.fetch();
-
+    app.Entries.story_title = this.story_title;
     // debugger;
     // added header reference for story title Vin 12/2
     // this.$headerTitle.html("app.Entries.title");
     // $('#headerTitle').html(app.Entries.model.get("title"));
-    $('#headerTitle').html(this.story_title);
-
+    // $('#headerTitle').html(this.story_title);
+    $('#headerStory').html(this.story_title);
+    $('#headerStory').show();
+    // $('#headerEntry').html("Title of story:<br>" + this.story_title);
+    // $('#headerEntry').show();
+    $('#headerEntry').hide();
+    $('#info').hide();
+    $('#infoEntries').show();
+    $('#infoComments').hide();
     // app.Entries.fetch({
     //   success: function () {
     //     this.render;
@@ -158,7 +164,8 @@ app.EntryAppView = Backbone.View.extend({
         .filter('[href="#/' + ( app.EntryFilter || '' ) + '"]')
         .addClass('selected');
     } else {
-      this.$main.hide();
+      // vin 12/5 trying to make story title appear at top of entries index
+      // this.$main.hide();
       this.$footer.hide();
     }
 
@@ -170,8 +177,8 @@ app.EntryAppView = Backbone.View.extend({
   // Add a single entry item to the list by creating a view for it, and
   // appending its element to the `<ul>`.
   addOne: function( entry ) {
+    // debugger;
     console.log("entries_index addOne");
-// debugger;
 
     // this works but anyone can edit any entry
     var view = new app.EntryView({ model: entry });
@@ -187,6 +194,7 @@ app.EntryAppView = Backbone.View.extend({
 
   // Add all items in the **Entries** collection at once.
   addAll: function() {
+    // debugger;
     console.log("entries_index addAll");
     $('#story-list').html('');
     // this.$('#entry-list').html('');
@@ -207,20 +215,16 @@ app.EntryAppView = Backbone.View.extend({
   // New
   // Generate the attributes for a new Entry item.
   newAttributes: function() {
-    // debugger;
+    debugger;
     return {
       // use title of story for title of entry
       // title: this.$input.val().trim(),
-      title: app.Entries.title, //doesn't work Vin 12/2
-
-
-
+      // title: app.Entries.title, //doesn't work Vin 12/2
+      title: app.Entries.story_title,
       description: this.$input.val().trim(),
-
       // code below does not work
       // user_id: this.user_id,
       user_id: app.Entries.user_id, // doesn't work Vin 12/2
-
       story_id: app.Entries.story_id,
       order: app.Entries.nextOrder(),
       completed: false
@@ -236,14 +240,13 @@ app.EntryAppView = Backbone.View.extend({
     if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
       return;
     }
-
     debugger;
     app.Entries.create( this.newAttributes(), { wait: true } );
     debugger;
     this.$input.val('');
 
-    this.$input.val('Click here, type a paragraph and press ENTER to add a new paragraph entry to the story.');
-
+    // this.$input.val('Click here, type a paragraph and press ENTER to add a new paragraph entry to the story.');
+    this.$input.attr("placeholder", "Click here, type a comment and press ENTER to add a new comment to the paragraph entry.");
   },
 
   // New

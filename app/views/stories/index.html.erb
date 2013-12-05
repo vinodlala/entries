@@ -1,22 +1,38 @@
   <div id="info">
-    <p>To add a NEW story, click the link at the top of this list.</p>
-    <p>To add to an EXISTING story, hover over the story and click the green arrow.</p>
+    <p>Welcome to Story Stacker.</p>
+    <p>You are looking at the list of stories.</p>
+    <p>To add a NEW story, click the link at the top of the list.</p>
+    <p>To read an EXISTING story and make comments on story entries, click a story title.</p>
+    <p>If you started the story (or have been named a co-writer to a story), you can add paragraph entries, too.</p>
+    <p>Happy writing!</p>
   </div>
 
+  <div id="infoEntries">
+    <p>Welcome to Story Stacker.</p>
+    <p>You are looking at the list of paragraph entries for a story.</p>
+    <p>If you put your mouse over an entry, you can see who wrote the entry and when they wrote it.</p>
+    <p>You can also make a comment about the paragraph entry by clicking on the "Comments" link.</p>
+    <p>If you started the story (or have been named a co-writer to a story), you can add paragraph entries at the bottom of the list.</p>
+    <p>You can edit your own entries by double-clicking on the entry.</p>
+  </div>
+
+  <div id="infoComments">
+    <p>Welcome to Story Stacker.</p>
+    <p>You are looking at the list of comments for a paragraph entry for a story.</p>
+    <p>If you put your mouse over a comment, you can see who wrote the comment and when they wrote it.</p>
+    <p>You can also make a comment about the paragraph entry at the bottom of the list.</p>
+    <p>When making comments, provide constructive feedback and make suggestions.</p>
+    <p>You can edit your comments by double-clicking on the comment.</p>
+  </div>
+
+<br><br>
   <section id="storyapp">
     <header id="header">
       <h1 id="headerTitle">Story Stacker</h1>
 
-
-
-
 <!--       <div class="view">
         <div><label class="view headerEntry" id="headerEntry"></label></div>
       <div> -->
-
-
-
-
 
       <!-- <h1>A Fullstack Story</h1> -->
 
@@ -25,7 +41,7 @@
       <% if user_signed_in? %>
 
         <div class="view new-story" id="new-story">
-          <div><label class="story-title"><a class="add-new-story-anchor" href="/stories/new">Click here to add a new story</a></label></div>
+          <div><label class="story-title"><a class="add-new-story-anchor" href="/stories/new">Add a new story</a></label></div>
         </div>
 
         <% if false %>
@@ -55,6 +71,15 @@
 
 
       <!-- <label for="toggle-all">Mark all as complete</label> -->
+
+      <ul id="story-list-story">
+        <li>
+          <div class="view">
+            <div><label id="headerStory"></label></div>
+          </div>
+        </li>
+      </ul>
+
 
 
       <ul id="story-list-entry">
@@ -140,10 +165,12 @@
 
       <div><label><%%- description %></label></div>
 
+      <%% if (false) { %>
       <div class="notes"><label class="story-dates">Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
+      <%% } %>
 
       <%% if (window.current_user == user_id) { %>
-        <div class="notes"><label><a class="edit-info-about-story-anchor">Edit story info</button></label></div>
+        <div class="notes_right"><label><a class="edit-info-about-story-anchor">Edit story info</button></label></div>
       <%% } %>
 
       <%% if (false) { %>
@@ -151,7 +178,7 @@
       <%% } %>
 
     </div>
-
+    <div class="clearfix"></div>
     <textarea class="edit"><%%- description %></textarea>
 
   </script>
@@ -174,19 +201,34 @@
       <div class="notes story-writers"><label>By: <%%- user_id %></label></div>
       <%% } %>
 
-      <%% if (true) { %>
-      <div class="notes entry-writers"><label>By: <%%- name %></label></div>
-      <%% } %>
-
       <%% if (false) { %>
-      <div class="notes entry-writers"><label>With: <%%- collaborators %></label></div>
+      <div class="notes entry-writers"><label>By: <%%- name %></label></div>
       <%% } %>
 
       <%% if (true) { %>
       <div class="notes story-dates"><label >Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
       <%% } %>
 
+      <%% if (true) { %>
+      <div class="notes_right entry-writers"><label>By: <%%- name %></label></div>
+      <%% } %>
+
+      <%% if (false) { %>
+      <div class="notes entry-writers"><label>With: <%%- collaborators %></label></div>
+      <%% } %>
+
+
       <div class="notes"><label><a class="go-to-comments-anchor">Comments</a></label></div>
+
+
+
+      <%% if (false) { %>
+      <div class="notes story-dates"><label >Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
+      <%% } %>
+
+      <%% if (false) { %>
+      <div class="notes"><label><a class="go-to-comments-anchor">Comments</a></label></div>
+      <%% } %>
 
     </div>
     <div class="clearfix"></div>
@@ -210,13 +252,18 @@
 
       <div><label><%%- description %></label></div>
 
-      <div><label class="notes entry-writers">By: <%%- name %></label></div>
-
      <%% if (true) { %>
       <div><label class="notes story-dates">Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
       <%% } %>
 
+      <div><label class="notes_right entry-writers">By: <%%- name %></label></div>
+
+     <%% if (false) { %>
+      <div><label class="notes story-dates">Created: <%%- created_at %>, Updated: <%%- updated_at %></label></div>
+      <%% } %>
+
     </div>
+    <div class="clearfix"></div>
     <textarea class="edit" value="<%%- description %>">
   </script>
 
@@ -309,8 +356,10 @@
     var pusher = new Pusher('6cf8dfb25489020a860b');
     var channel = pusher.subscribe('story_1_entries');
     channel.bind('new_entry_event', function(data) {
-      // debugger;
-      if(app.Entries.where({id: data.id}).length === 0) {
+      debugger;
+      // if(app.Entries.where({id: data.id}).length === 0) {
+      if(app.Entries.where({id: data.id}).length === 0 &&
+        app.Entries.where({story_id: data.story_id}).length > 0) {
         app.Entries.add(data);
       }
     });
@@ -320,7 +369,9 @@
     var channel = pusher.subscribe('story_1_entries');
     channel.bind('new_comment_event', function(data) {
       debugger;
-      if(app.Comments.where({id: data.id}).length === 0) {
+      // if(app.Comments.where({id: data.id}).length === 0) {
+      if(app.Comments.where({id: data.id}).length === 0 &&
+        app.Comments.where({entry_id: data.entry_id}).length > 0) {
         app.Comments.add(data);
       }
     });

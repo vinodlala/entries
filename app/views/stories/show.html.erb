@@ -17,9 +17,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @story.user_id %>
-    <%= @story.user.name %>
+  <%= @story.user.name %>
 </p>
 
+<% if false %>
 <%= link_to 'Edit', edit_story_path(@story) %> |
 <%= link_to 'Back', stories_path %>
+<% end %>
+
+<%= link_to 'Go back to story index', '/' %>

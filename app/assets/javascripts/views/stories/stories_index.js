@@ -72,6 +72,11 @@ app.StoryAppView = Backbone.View.extend({
     this.$('#new-story').show();
     this.$('#new-entry').hide();
     this.$('#new-comment').hide();
+    $('#headerStory').hide();
+    $('#headerEntry').hide();
+    $('#info').show();
+    $('#infoEntries').hide();
+    $('#infoComments').hide();
 
     // New
     this.listenTo(app.Stories, 'change:completed', this.filterOne);

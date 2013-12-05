@@ -36,8 +36,7 @@ app.CommentAppView = Backbone.View.extend({
   // collection, when items are added or changed. Kick things off by
   // loading any preexisting entries that might be saved in *localStorage*.
   initialize: function() {
-
-    alert("comments_index initialize");
+    // debugger
     if (!_.isUndefined(arguments[0].user_id)) {
       this.user_id = arguments[0].user_id;
     }
@@ -78,15 +77,19 @@ app.CommentAppView = Backbone.View.extend({
     app.Comments.fetch();
 
 // debugger;
-    alert("after fetch, before #headerEntry fill in");
+    // alert("after fetch, before #headerEntry fill in");
 
     // this.$('#headerEntry').show();
 
 
     // $('#headerTitle').html(this.entry_description);
     $('#headerEntry').html("Entry being commented on:<br><br>" + this.entry_description + "<br>");
-
-    alert("after #headerEntry filled in");
+    $('#headerEntry').show();
+    $('#headerStory').hide();
+    $('#info').hide();
+    $('#infoEntries').hide();
+    $('#infoComments').show();
+    // alert("after #headerEntry filled in");
     // app.Entries.fetch( {data: {id: 2} });
 
     //alert(app.Entries);
@@ -135,20 +138,17 @@ app.CommentAppView = Backbone.View.extend({
   // appending its element to the `<ul>`.
   addOne: function( comment ) {
     // debugger;
-    // alert("comments_index addOne")
     console.log("comments_index addOne");
     var view = new app.CommentView({ model: comment });
     $('#story-list').append( view.render().el );
   },
 
-  // Add all items in the **Entries** collection at once.
+  // Add all items in the **Comments** collection at once.
   addAll: function() {
     // debugger;
     console.log("comments_index addAll");
-    // alert("comments_index addAll");
-    // this.$('#story-list').html('');
     $('#story-list').html('');
-
+    // this.$('#story-list').html('');
 
     // $('#story-list').html('<li><div class="view"><div><label id="headerEntry"></label></div></div></li>');
 
@@ -174,8 +174,11 @@ app.CommentAppView = Backbone.View.extend({
   newAttributes: function() {
     // debugger;
     return {
-      title: this.$input.val().trim(),
+      // title: this.$input.val().trim(),
+      title: app.Comments.title, // Vin 12/5
       description: this.$input.val().trim(),
+      //
+      //
       user_id: this.user_id,
       entry_id: app.Comments.entry_id,
       story_id: app.Comments.story_id,

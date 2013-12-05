@@ -150,6 +150,7 @@ app.StoryView = Backbone.View.extend({
 
     // added title to entry list Vin 12/2
 
+    debugger;
     // app.Entries.title = this.model.title;
 
     // debugger;
