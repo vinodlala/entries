@@ -8,11 +8,16 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :name %><br />
-  Your username should consist of your ENTIRE first name<br />
-  followed by the INITIAL of your last name.<br />
+  Your username should consist of your ENTIRE first name followed by the INITIAL of your last name.<br />
+  <br>
   Use letters only (no spaces, hypens or underscores).<br />
+  <br>
   For example, Mary Smith should have a username of MaryS.<br />
+  <br>
+  If your username is taken, add more letters from your last name.<br>
+  <br>
+  <div><%= f.label :name %><br />
+
   <%= f.text_field :name, :autofocus => true %></div>
 
   <br />
@@ -22,17 +27,17 @@
 
   <br />
 
-  <div><%= f.label :password %><br />
+  <div><%= f.label :password %> Your password must be at least eight characters long.<br>
   <%= f.password_field :password %></div>
 
   <br />
 
-  <div><%= f.label :password_confirmation %><br />
+  <div><%= f.label :password_confirmation %> Type the same password here.<br>
   <%= f.password_field :password_confirmation %></div>
 
   <br />
 
   <div><%= f.submit "Sign up" %></div>
 <% end %>
-
+<br>
 <%= render "devise/shared/links" %>
