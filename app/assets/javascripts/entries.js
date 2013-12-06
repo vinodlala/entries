@@ -78,6 +78,7 @@ app.EntryView = Backbone.View.extend({
     // debugger;
     if (this.model.get("user_id") == window.current_user) {
       this.$el.addClass('editing');
+      // debugger;
       this.$input.val(this.model.get("description"));
       this.$input.focus();
     } else {
