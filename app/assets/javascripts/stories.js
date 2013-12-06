@@ -22,7 +22,7 @@ app.StoryView = Backbone.View.extend({
 
 
     // 'click .add-new-story-button': 'AddNewStory',
-    'click .add-new-story-anchor': 'AddNewStory', //not working?
+    'click .add-new-story-anchor': 'AddNewStory', //not working?, using rails route
 
     // 'click .go-to-story-button': 'goToStory',
     'click .go-to-story-anchor': 'goToStoryEntries',
@@ -150,7 +150,7 @@ app.StoryView = Backbone.View.extend({
 
     // added title to entry list Vin 12/2
 
-    debugger;
+    // debugger;
     // app.Entries.title = this.model.title;
 
     // debugger;

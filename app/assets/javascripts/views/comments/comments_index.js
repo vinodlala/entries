@@ -83,7 +83,7 @@ app.CommentAppView = Backbone.View.extend({
 
 
     // $('#headerTitle').html(this.entry_description);
-    $('#headerEntry').html("Entry being commented on:<br><br>" + this.entry_description + "<br>");
+    $('#headerEntry').html("Entry being commented on:<br><br><br>" + this.entry_description + "<br><br><br>");
     $('#headerEntry').show();
     $('#headerStory').hide();
     $('#info').hide();

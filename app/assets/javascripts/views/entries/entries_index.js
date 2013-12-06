@@ -78,7 +78,7 @@ app.EntryAppView = Backbone.View.extend({
     // alert(this.user_id);
     // alert("window.current_user");
     // alert(window.current_user);
-    debugger;
+    // debugger;
     if (!_.isUndefined(arguments[0].story_title)) {
       this.story_title = arguments[0].story_title;
     }
@@ -215,7 +215,7 @@ app.EntryAppView = Backbone.View.extend({
   // New
   // Generate the attributes for a new Entry item.
   newAttributes: function() {
-    debugger;
+    // debugger;
     return {
       // use title of story for title of entry
       // title: this.$input.val().trim(),

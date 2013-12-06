@@ -21,11 +21,11 @@ var Workspace = Backbone.Router.extend({
 
 
   showStoryEntries: function () {
-    alert("in router's showStoryEntries");
+    // alert("in router's showStoryEntries");
   },
 
   showEntryComments: function () {
-    alert("in router's showEntryComments");
+    // alert("in router's showEntryComments");
   },
 
   setFilter: function( param ) {

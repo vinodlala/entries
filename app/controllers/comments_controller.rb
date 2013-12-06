@@ -30,6 +30,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
 
+    # trying to add name
+    @comment.user.name
+
     Pusher.url = "http://6cf8dfb25489020a860b:2d36b119c7b193cf1314@api.pusherapp.com/apps/59201"
 
     respond_to do |format|

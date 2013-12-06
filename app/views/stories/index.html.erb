@@ -358,9 +358,28 @@
     channel.bind('new_entry_event', function(data) {
       debugger;
       // if(app.Entries.where({id: data.id}).length === 0) {
+
+      // this code would not add a first entry because it is looking for
+      // existing entries
+      // if(app.Entries.where({id: data.id}).length === 0 &&
+      //   app.Entries.where({story_id: data.story_id}).length > 0) {
+
       if(app.Entries.where({id: data.id}).length === 0 &&
-        app.Entries.where({story_id: data.story_id}).length > 0) {
+        app.Entries.story_id === data.story_id) {
+
+        // time looks better, but not like the ones already there - should be done better
+        data.created_at = Date(data.created_at);
+        data.updated_at = Date(data.updated_at);
+        // add name of writer - should be done better
+        data.name = window.current_username;
+
         app.Entries.add(data);
+
+        // trying to populate placeholder
+        debugger;
+        $('#new_entry').attr("placeholder", "Click here, type a comment and press ENTER to add a new comment to the paragraph entry.");
+
+
       }
     });
   </script>
@@ -368,10 +387,82 @@
     var pusher = new Pusher('6cf8dfb25489020a860b');
     var channel = pusher.subscribe('story_1_entries');
     channel.bind('new_comment_event', function(data) {
+
       debugger;
+
+      // puts a new comment on comment index for any entry,
+      // not just the specific entry
       // if(app.Comments.where({id: data.id}).length === 0) {
+
+      // check that the comment is for that particular entry
+      // if(app.Comments.where({id: data.id}).length === 0 &&
+      //   app.Comments.where({entry_id: data.entry_id}).length > 0) {
+
       if(app.Comments.where({id: data.id}).length === 0 &&
-        app.Comments.where({entry_id: data.entry_id}).length > 0) {
+        app.Comments.entry_id === data.entry_id) {
+
+        debugger;
+
+        // time showing up as UTC.
+        // time looks better, but not like the ones already there - should be done better
+        data.created_at = Date(data.created_at);
+        data.updated_at = Date(data.updated_at);
+
+
+        // var createDateString = "";
+        // // createDateTemp = new Date(data.created_at);
+        // createDateTemp = new Date();
+
+        // createDateString = createDateTemp.getFullYear();
+        // createDateString += "-";
+        // createDateString += createDateTemp.getMonth() + 1;
+        // createDateString += "-";
+        // createDateString += createDateTemp.getDate();
+        // createDateString += " ";
+        // // createDateString += createDateTemp.getUTCHours();
+        // var hours = 0;
+
+
+        // if (createDateTemp.getUTCHours() > 5) {
+        //   hours = createDateTemp.getUTCHours() - 5;
+        // } else if (createDateTemp.getUTCHours() = 5) {
+        //   hours = 12;
+        // } else if (createDateTemp.getUTCHours() = 4) {
+        //   hours = 11;
+        // } else if (createDateTemp.getUTCHours() = 3) {
+        //   hours = 10;
+        // } else if (createDateTemp.getUTCHours() = 2) {
+        //   hours = 9;
+        // } else if (createDateTemp.getUTCHours() = 1) {
+        //   hours = 8;
+        // }
+        // // if (createDateTemp.getUTCHours() > 12) {
+        // //   hours = createDateTemp.getUTCHours() - 12;
+        // //   createDateString += hours;
+        // // } else {
+        // //   hours = createDateTemp.getUTCHours();
+        // //   createDateString += hours;
+        // // }
+
+
+        // createDateString += ":";
+        // createDateString += createDateTemp.getMinutes();
+        // createDateString += " ";
+        // if (createDateTemp.getUTCHours() > 12) {
+        //   createDateString += "p.m.";
+        // } else {
+        //   createDateString += "a.m.";
+        // }
+
+        // // createDateString = createDateTemp.getUTCHours();
+        // // createdDateString = Date(data.created_at).getFullYear();
+        // data.created_at = createDateString;
+        // data.updated_at = Date(data.updated_at);
+
+        // add name of writer - should be done better
+        data.name = window.current_username;
+
+        debugger;
         app.Comments.add(data);
       }
     });

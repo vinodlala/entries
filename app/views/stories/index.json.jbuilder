@@ -1,13 +1,18 @@
 json.array!(@stories) do |story|
   # json.extract! story, :id, :title, :description, :user_id
   json.extract! story, :id, :title, :description, :user_id
-  json.created_at story.created_at.strftime("%F %l:%M %P")
-  json.updated_at story.updated_at.strftime("%F %l:%M %P")
+
+  # json.created_at story.created_at.strftime("%F %l:%M %P")
+  # json.updated_at story.updated_at.strftime("%F %l:%M %P")
+
+  json.created_at story.created_at.getlocal.strftime("%F %l:%M %P")
+  json.updated_at story.updated_at.getlocal.strftime("%F %l:%M %P")
+
   if story.user && story.user.name
     json.extract! story.user, :name
   end
 
-# look up collaborator stuff here
+  # look up collaborator stuff here
 
   # json.collaborators story.users # returns objects
 
@@ -37,7 +42,5 @@ json.array!(@stories) do |story|
 
   json.url story_url(story, format: :json)
 
-
-# look up collaborator stuff here
 
 end

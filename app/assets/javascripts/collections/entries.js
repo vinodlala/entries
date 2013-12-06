@@ -16,14 +16,18 @@ var EntryList = Backbone.Collection.extend({
 
   // Set the url property (or function) on a collection to reference its location on the server.
   // url: '/entries',
-  url: function() {
-    return '/stories/' + this.story_id + '/entries';
-  },
+
   // url: function() {
   //   '/story/' + this.story_id + '/entries'
   // },
+
   // url: 'stories' + this.model.id  + '/entries',
+
   // url: 'stories' + 2 + '/entries',
+
+  url: function() {
+    return '/stories/' + this.story_id + '/entries';
+  },
 
 
   // Filter down the list of all entry items that are finished.
