@@ -16,7 +16,7 @@ app.CommentView = Backbone.View.extend({
   events: {
     // 'click .toggle': 'togglecompleted', // NEW
     'dblclick label': 'edit',
-    'click .destroy': 'clear',           // NEW
+//    'click .destroy': 'clear',           // NEW
 
 
 

@@ -9,7 +9,7 @@
 
   <div id="infoEntries">
     <p>Welcome to Story Stacker.</p>
-    <p>You are looking at the list of paragraph entries for a story.</p>
+    <p>You are looking at the list of paragraph entries for a particular story.</p>
     <p>If you put your mouse over an entry, you can see who wrote the entry and when they wrote it.</p>
     <p>You can also make a comment about the paragraph entry by clicking on the "Comments" link.</p>
     <p>If you started the story (or have been named a co-writer to a story), you can add paragraph entries at the bottom of the list.</p>
@@ -356,7 +356,7 @@
     var pusher = new Pusher('6cf8dfb25489020a860b');
     var channel = pusher.subscribe('story_1_entries');
     channel.bind('new_entry_event', function(data) {
-      debugger;
+      // debugger;
       // if(app.Entries.where({id: data.id}).length === 0) {
 
       // this code would not add a first entry because it is looking for
@@ -376,8 +376,8 @@
         app.Entries.add(data);
 
         // trying to populate placeholder
-        debugger;
-        $('#new-entry').attr("placeholder", "Click here, type a comment and press ENTER to add a new comment to the paragraph entry.");
+        // debugger;
+        // $('#new-entry').attr("placeholder", "Click here, type a comment and press ENTER to add a new comment to the paragraph entry.");
 
 
       }
@@ -388,7 +388,7 @@
     var channel = pusher.subscribe('story_1_entries');
     channel.bind('new_comment_event', function(data) {
 
-      debugger;
+      // debugger;
 
       // puts a new comment on comment index for any entry,
       // not just the specific entry
@@ -401,7 +401,7 @@
       if(app.Comments.where({id: data.id}).length === 0 &&
         app.Comments.entry_id === data.entry_id) {
 
-        debugger;
+        // debugger;
 
         // time showing up as UTC.
         // time looks better, but not like the ones already there - should be done better
@@ -462,7 +462,7 @@
         // add name of writer - should be done better
         data.name = window.current_username;
 
-        debugger;
+        // debugger;
         app.Comments.add(data);
       }
     });

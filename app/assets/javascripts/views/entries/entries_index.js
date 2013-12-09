@@ -240,13 +240,13 @@ app.EntryAppView = Backbone.View.extend({
     if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
       return;
     }
-    debugger;
+    // debugger;
     app.Entries.create( this.newAttributes(), { wait: true } );
-    debugger;
+    // debugger;
     this.$input.val('');
 
     // this.$input.val('Click here, type a paragraph and press ENTER to add a new paragraph entry to the story.');
-    this.$input.attr("placeholder", "Click here, type a comment and press ENTER to add a new comment to the paragraph entry.");
+    // this.$input.attr("placeholder", "Click here, type a comment and press ENTER to add a new comment to the paragraph entry.");
     // pressing enter after making entry was removing placeholder
     // preventDefault prevents that
     event.preventDefault();

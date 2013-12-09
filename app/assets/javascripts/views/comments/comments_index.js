@@ -137,7 +137,7 @@ app.CommentAppView = Backbone.View.extend({
   // Add a single entry item to the list by creating a view for it, and
   // appending its element to the `<ul>`.
   addOne: function( comment ) {
-    debugger;
+    // debugger;
     console.log("comments_index addOne");
     var view = new app.CommentView({ model: comment });
     $('#story-list').append( view.render().el );
@@ -196,9 +196,9 @@ app.CommentAppView = Backbone.View.extend({
     if ( event.which !== ENTER_KEY || !this.$input.val().trim() ) {
       return;
     }
-    debugger;
+    // debugger;
     app.Comments.create( this.newAttributes(), { wait: true } );
-    debugger;
+    // debugger;
     this.$input.val('');
 
     // this.$input.val('Click here, type a comment and press ENTER to add a new comment to the paragraph entry.');
